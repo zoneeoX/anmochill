@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
+import { useNavigate } from 'react-router-dom'
 
 const Animecard = ({
   title,
@@ -11,6 +12,7 @@ const Animecard = ({
   season,
   studios,
   type,
+  mal_id,
 
   current,
 }) => {
@@ -30,8 +32,14 @@ const Animecard = ({
   }, []);
    */
 
+  const navigate = useNavigate()
+
   return (
-    <div className="flex group mt-4">
+    <div className="flex group mt-4" onClick={() => navigate(`anime/${mal_id}/${title}`, {
+      state: {
+        title
+      }
+    })}>
       <div>
         <img
           src={images.jpg.large_image_url}
@@ -42,12 +50,10 @@ const Animecard = ({
         </h2>
       </div>
 
-      <div
-        className={`relative ease-in-out duration-500 transition-all right-[10vw] opacity-0 group-hover:right-0 group-hover:opacity-100`}
-      >
+      <div className={`relative ease-in-out duration-500 transition-all right-[10vw] opacity-0 group-hover:right-0 group-hover:opacity-100`}>
         <div
           className={`
-          ${current === 5 ? "right-[11.5vw]" : "left-[1vw]"}
+          ${current === 5 ? "right-[11.5vw]" : 'left-[1vw]'}
           absolute bg-slate-700 min-w-[14vw] max-w-fit min-h-[8vw] max-h-fit text-white p-5 rounded-lg select-none pointer-events-none shadow-lg shadow-black}`}
         >
           <div className="flex flex-col capitalize text-md">

@@ -63,7 +63,7 @@ const Trending = () => {
       <Animecontainer type={"This Season."} to={"/trending"}>
         {itemList
           ?.slice(0, -19)
-          .map(({ title, genres, episodes, aired, score, images, season, studios, type }, i) => (
+          .map(({ title, genres, episodes, aired, score, images, season, studios, type, mal_id }, i) => (
             <Animecard
               title={title}
               genres={genres}
@@ -74,6 +74,7 @@ const Trending = () => {
               season={season}
               studios={studios}
               type={type}
+              mal_id={mal_id}
               current={i}
               key={i}
             />
@@ -82,7 +83,7 @@ const Trending = () => {
       <Animecontainer type={"Upcoming Season."} to={"/upcoming"}>
         {upcomingList
           ?.slice(0, -19)
-          .map(({ title, genres, episodes, aired, score, images, studios }, i) => (
+          .map(({ title, genres, episodes, aired, score, images, studios, mal_id }, i) => (
             <Animecard
               title={title}
               genres={genres}
@@ -91,6 +92,7 @@ const Trending = () => {
               score={score}
               images={images}
               studios={studios}
+              mal_id={mal_id}
               current={i}
               key={i}
             />

@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./misc/Navbar";
 import TrendingPage from "./page/TrendingPage";
 import UpcomingPage from "./page/UpcomingPage";
+import Anime from "./pages/Anime";
 import Hero from "./pages/Hero";
 import Trending from "./pages/Trending";
 
@@ -19,6 +20,7 @@ function App() {
     { name: "watchlist", path: "/watchlist" },
     { name: "upcoming", path: "/upcoming", to: <UpcomingPage /> },
     { name: "trending", path: "/trending", to: <TrendingPage /> },
+    { name: 'anime', path: "/anime/:id/:title", to: <Anime /> }
   ];
 
   return (
