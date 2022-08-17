@@ -59,7 +59,7 @@ const Trending = () => {
   }, [dispatch]);
 
   return (
-    <div className="w-screen min-h-screen max-h-full bg-sky-100 flex justify-center flex-col gap-10">
+    <div className="w-screen min-h-screen max-h-full bg-sky-100 flex flex-col gap-10">
       <Animecontainer type={"This Season."} to={"/trending"}>
         {itemList
           ?.slice(0, -19)
@@ -74,6 +74,7 @@ const Trending = () => {
               season={season}
               studios={studios}
               type={type}
+              current={i}
               key={i}
             />
           ))}
@@ -90,6 +91,7 @@ const Trending = () => {
               score={score}
               images={images}
               studios={studios}
+              current={i}
               key={i}
             />
           ))}

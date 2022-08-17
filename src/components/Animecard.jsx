@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 const Animecard = ({
   title,
@@ -10,10 +11,27 @@ const Animecard = ({
   season,
   studios,
   type,
+
+  current,
 }) => {
+  /**
+   * ! deprecate method
+   * 
+   * const [inViewRef, isFullyInView] = useInView({
+    threshold: 0.9,
+  });
+  const [test, setTest] = useState(false);
+
+  useEffect(() => {
+    if (isFullyInView === false) {
+      setTest(false);
+    }
+    console.log(current);
+  }, []);
+   */
 
   return (
-    <div className="flex flex-row gap-4 group">
+    <div className="flex group mt-4">
       <div>
         <img
           src={images.jpg.large_image_url}
@@ -24,8 +42,14 @@ const Animecard = ({
         </h2>
       </div>
 
-      <div className="relative hidden group-hover:block">
-        <div className="absolute bg-slate-700 min-w-[14vw] max-w-fit min-h-[8vw] max-h-fit text-white p-5 rounded-lg select-none pointer-events-none">
+      <div
+        className={`relative ease-in-out duration-500 transition-all right-[10vw] opacity-0 group-hover:right-0 group-hover:opacity-100`}
+      >
+        <div
+          className={`
+          ${current === 5 ? "right-[11.5vw]" : "left-[1vw]"}
+          absolute bg-slate-700 min-w-[14vw] max-w-fit min-h-[8vw] max-h-fit text-white p-5 rounded-lg select-none pointer-events-none shadow-lg shadow-black}`}
+        >
           <div className="flex flex-col capitalize text-md">
             <h2 className="flex flex-row gap-2 text-lg">
               {season} <p>{aired.string}</p>
@@ -53,7 +77,7 @@ const Animecard = ({
                       : genres.length < 3
                       ? "bg-blue-600"
                       : "bg-purple-700"
-                  } px-2 text-sm rounded-full`}
+                  } px-2 min-w-fit max-w-full text-sm rounded-full`}
                 >
                   {item.name}
                 </h3>

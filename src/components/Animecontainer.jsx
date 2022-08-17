@@ -7,17 +7,17 @@ const Animecontainer = ({ children, type, to }) => {
   return (
     <div>
       <div className="flex flex-row justify-between">
-        <h1 className="mx-[10vw] mb-4 text-[1vw] font-bold text-gray-600">
+        <h1 className="mx-[11.5vw] mb-4 text-[1vw] font-bold text-gray-600">
           {type}
         </h1>
         <h2
-          className="mx-[10vw] cursor-pointer"
+          className="mx-[11.5vw] cursor-pointer"
           onClick={() => navigate(to)}
         >
           View all.
         </h2>
       </div>
-      <div className="grid grid-cols-6 gap-10 mx-[10vw]">{children}</div>
+      <div className="grid grid-cols-6 mx-[10vw] place-items-center">{children}</div>
     </div>
   );
 };
