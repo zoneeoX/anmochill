@@ -1,9 +1,33 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const Longcard = ({ title, genres, episodes, aired, score, images, number }) => {
+const Longcard = ({
+  title,
+  genres,
+  images,
+  mal_id,
+  trailer,
+  synopsis,
+  number
+}) => {
+
+
+  const navigate = useNavigate()  
   return (
     <div className="gap-4 flex flex-col px-[0.5vw] justify-center rounded-lg">
-      <div className="flex flex-row gap-4 mx-[10vw] h-[5vw] items-center">
+      <div
+        className="flex flex-row gap-4 mx-[10vw] h-[5vw] items-center"
+        onClick={() =>
+          navigate(`anime/${mal_id}/${title}`, {
+            state: {
+              title,
+              synopsis,
+              trailer,
+              images
+              },
+          })
+        }
+      >
         <h1 className="text-gray-400 font-bold text-2xl">#{number + 1}</h1>
         <div className="bg-white flex flex-row w-full pl-4 py-2 items-center">
           <img src={images.jpg.large_image_url} className="w-[3vw] h-[4vw]" />

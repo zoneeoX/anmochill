@@ -13,6 +13,8 @@ const Animecard = ({
   studios,
   type,
   mal_id,
+  trailer,
+  synopsis,
 
   current,
 }) => {
@@ -37,7 +39,10 @@ const Animecard = ({
   return (
     <div className="flex group mt-4" onClick={() => navigate(`anime/${mal_id}/${title}`, {
       state: {
-        title
+        title,
+        synopsis,
+        trailer,
+        images
       }
     })}>
       <div>

@@ -63,56 +63,100 @@ const Trending = () => {
       <Animecontainer type={"This Season."} to={"/trending"}>
         {itemList
           ?.slice(0, -19)
-          .map(({ title, genres, episodes, aired, score, images, season, studios, type, mal_id }, i) => (
-            <Animecard
-              title={title}
-              genres={genres}
-              episodes={episodes}
-              aired={aired}
-              score={score}
-              images={images}
-              season={season}
-              studios={studios}
-              type={type}
-              mal_id={mal_id}
-              current={i}
-              key={i}
-            />
-          ))}
+          .map(
+            (
+              {
+                title,
+                genres,
+                episodes,
+                aired,
+                score,
+                images,
+                season,
+                studios,
+                type,
+                mal_id,
+                trailer,
+                synopsis,
+              },
+              i
+            ) => (
+              <Animecard
+                title={title}
+                genres={genres}
+                episodes={episodes}
+                aired={aired}
+                score={score}
+                images={images}
+                season={season}
+                studios={studios}
+                trailer={trailer}
+                synopsis={synopsis}
+                type={type}
+                mal_id={mal_id}
+                current={i}
+                key={i}
+              />
+            )
+          )}
       </Animecontainer>
       <Animecontainer type={"Upcoming Season."} to={"/upcoming"}>
         {upcomingList
           ?.slice(0, -19)
-          .map(({ title, genres, episodes, aired, score, images, studios, mal_id }, i) => (
-            <Animecard
-              title={title}
-              genres={genres}
-              episodes={episodes}
-              aired={aired}
-              score={score}
-              images={images}
-              studios={studios}
-              mal_id={mal_id}
-              current={i}
-              key={i}
-            />
-          ))}
+          .map(
+            (
+              {
+                title,
+                genres,
+                episodes,
+                aired,
+                score,
+                images,
+                studios,
+                mal_id,
+                trailer,
+                synopsis,
+              },
+              i
+            ) => (
+              <Animecard
+                title={title}
+                genres={genres}
+                episodes={episodes}
+                aired={aired}
+                score={score}
+                images={images}
+                studios={studios}
+                synopsis={synopsis}
+                mal_id={mal_id}
+                current={i}
+                trailer={trailer}
+                key={i}
+              />
+            )
+          )}
       </Animecontainer>
       <LongcardContainer>
-        {topList.slice(0, -15).map(({ title, genres, episodes, aired, score, images }, i) => (
-          <>
-          <Longcard
-            title={title}
-            genres={genres}
-            episodes={episodes}
-            aired={aired}
-            score={score}
-            images={images}
-            number={i}
-            key={i}
-          />
-          </>
-        ))}
+        {topList
+          .slice(0, -15)
+          .map(({ title, genres, episodes, aired, score, images, synopsis, mal_id, studios, trailer }, i) => (
+            <>
+              <Longcard
+                title={title}
+                genres={genres}
+                episodes={episodes}
+                aired={aired}
+                score={score}
+                images={images}
+                studios={studios}
+                synopsis={synopsis}
+                mal_id={mal_id}
+                number={i}
+                trailer={trailer}
+                key={i}
+              />
+            </>
+          ))}
       </LongcardContainer>
     </div>
   );
