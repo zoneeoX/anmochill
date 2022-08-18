@@ -1,5 +1,7 @@
 import React from "react";
-import { AiOutlineArrowDown } from "react-icons/ai";
+import { CgMenuBoxed } from "react-icons/cg";
+import { IoIosArrowDown } from 'react-icons/io'
+
 import blob from "../images/blob.svg";
 
 const Hero = () => {
@@ -7,17 +9,29 @@ const Hero = () => {
     <>
       <img
         src={blob}
-        className="w-[100%] h-full absolute -z-50 object-cover bg-sky-100 object-center"
+        className="w-[100%] h-full absolute -z-50 object-cover bg-gradient-to-b from-teal-900 to-slate-900 object-center"
       />
       <div className="w-screen h-screen flex justify-center items-center flex-col">
-        <h1 className="text-6xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-blue-500 w-fit">Find your favorite Film & Anime here</h1>
-        <p className="border-b-2 border-blue-600 text-2xl cursor-pointer select-none bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-purple-500 w-fit">
-          Come join the Community!
+        <h1 className="text-8xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-slate-500 w-fit font-exo">
+          Anmo<span>Chill</span>
+        </h1>
+        <p className="text-2xl cursor-pointer select-nonetext-white w-[32vw] text-center text-white mt-2 font-josef">
+          The home of alternative Anime & Movie Rankings, In depth description,
+          Recommendations and more!
         </p>
-        <div className="relative top-[40%]">
-          <button className="relative w-[4vh] h-[4vh] text-white rounded-full bg-orange-500 items-center flex justify-center text-2xl">
-            <AiOutlineArrowDown />
+
+        <p className="flex flex-row items-center gap-2 text-white relative font-josef top-[10vh]">
+          <i className="text-4xl">
+            <CgMenuBoxed />
+          </i>
+          For the Anime & Movie community, Made by{" "}
+          <span className="text-blue-400">zoneeox</span>
+        </p>
+        <div className="relative top-[25vh] group hover:scale-110 duration-100">
+          <button className="relative w-[5vh] h-[5vh] text-white rounded-full bg-white/10 border-2 border-white/10 hover:bg-white/100 hover:text-black transiion-all shadow-white items-center flex justify-center text-2xl transition-all duration-100">
+            <IoIosArrowDown />
           </button>
+          <div className="absolute bg-white rounded-full blur-xl inset-0 -z-10 invisible group-hover:visible" />
         </div>
       </div>
     </>

@@ -2,7 +2,7 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <nav className="w-screen h-[10vh] bg-slate-800/75 flex flex-row justify-between items-center text-primer px-[10vw] fixed z-50">
+    <nav className="w-screen h-[10vh] bg-slate-800 flex flex-row justify-between items-center text-primer px-[10vw] fixed z-50 filter backdrop-blur-md">
       <div className="flex flex-row gap-2 items-end text-white">
         <h1 className="text-4xl flex flex-row text-white">
           Anmo<p className="text-blue-400">Chill</p>
@@ -10,7 +10,7 @@ const Navbar = () => {
 
       </div>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col text-white relative">
         <label htmlFor="input"></label>
         <input
           type="text"

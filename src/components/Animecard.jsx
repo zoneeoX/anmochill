@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 const Animecard = ({
   title,
@@ -17,6 +17,7 @@ const Animecard = ({
   synopsis,
 
   current,
+  navRoutes,
 }) => {
   /**
    * ! deprecate method
@@ -34,31 +35,46 @@ const Animecard = ({
   }, []);
    */
 
-  const navigate = useNavigate()
+  const [currently, setCurrently] = useState(current + 1)
+  const organizedTitle = title.replace(/\s+/g, '-');
+
+
+  const navigate = useNavigate();
 
   return (
-    <div className="flex group mt-4" onClick={() => navigate(`anime/${mal_id}/${title}`, {
-      state: {
-        title,
-        synopsis,
-        trailer,
-        images
+    <div
+      className="flex group mt-4 cursor-pointer"
+      onClick={() =>
+        navigate(`/anime/${navRoutes}/${mal_id}/${organizedTitle}/`, {
+          state: {
+            title,
+            synopsis,
+            trailer,
+            images,
+          },
+        })
       }
-    })}>
+    >
       <div>
         <img
           src={images.jpg.large_image_url}
           className="w-[10vw] h-[15vw] rounded-lg"
         />
-        <h2 className="truncate w-[10vw] text-gray-600 font-semibold group-hover:text-blue-500">
+        <h2 className="truncate w-[10vw] text-gray-600 font-semibold group-hover:text-blue-500 font-exo">
           {title}
         </h2>
       </div>
 
-      <div className={`relative ease-in-out duration-500 transition-all right-[10vw] opacity-0 group-hover:right-0 group-hover:opacity-100`}>
+      <div
+        className={`relative ease-in-out duration-500 transition-all right-[10vw] opacity-0 group-hover:right-0 group-hover:opacity-100 font-josef`}
+      >
         <div
           className={`
-          ${current === 5 ? "right-[11.5vw]" : 'left-[1vw]'}
+          ${
+            currently % 6 === 0
+              ? "right-[11.5vw] before:bg-slate-700 before:rotate-45 before:translate-y-[2vw] before:w-[20%] before:h-[10%] before:absolute before:-z-10 z-10 before:-right-[5%]"
+              : "left-[1vw] before:bg-slate-700 before:rotate-45 before:translate-y-[4vw] before:w-[20%] before:h-[10%] before:absolute before:-z-10 z-10 before:-left-[5%]"
+          }
           absolute bg-slate-700 min-w-[14vw] max-w-fit min-h-[8vw] max-h-fit text-white p-5 rounded-lg select-none pointer-events-none shadow-lg shadow-black}`}
         >
           <div className="flex flex-col capitalize text-md">
@@ -67,7 +83,7 @@ const Animecard = ({
             </h2>
 
             <div className="mt-2">
-              <h1 className={`${"text-yellow-400"}`}>{studios[0].name} </h1>
+              <h1 className={`${"text-yellow-400"}`}>{studios[0]?.name} </h1>
 
               <div className="flex flex-row">
                 <h2>{type || "TV "}</h2>&nbsp;
@@ -78,7 +94,7 @@ const Animecard = ({
             </div>
 
             <div className="flex flex-row gap-2 mt-5">
-              {genres.map((item) => (
+              {genres.map((item, i) => (
                 <h3
                   className={`${
                     genres.length === 3
@@ -89,6 +105,7 @@ const Animecard = ({
                       ? "bg-blue-600"
                       : "bg-purple-700"
                   } px-2 min-w-fit max-w-full text-sm rounded-full`}
+                  key={i}
                 >
                   {item.name}
                 </h3>

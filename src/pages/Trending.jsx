@@ -46,11 +46,11 @@ const Trending = () => {
   const { itemList, isError, isLoading } = seasonNow;
   const { upcomingList } = upcoming;
   const { topList } = top;
-  console.log(upcomingList);
 
   // --------------------------------------------
 
   const dispatch = useDispatch();
+  const navRoutes = ['trending', 'upcoming', 'top']
 
   useEffect(() => {
     dispatch(fetchTrending());
@@ -59,8 +59,8 @@ const Trending = () => {
   }, [dispatch]);
 
   return (
-    <div className="w-screen min-h-screen max-h-full bg-sky-100 flex flex-col gap-10">
-      <Animecontainer type={"This Season."} to={"/trending"}>
+    <div className="w-screen min-h-screen max-h-full bg-sky-100 flex flex-col gap-10 py-[4vw]">
+      <Animecontainer type={"This Season."} to={"/anime/trending"}>
         {itemList
           ?.slice(0, -19)
           .map(
@@ -94,13 +94,14 @@ const Trending = () => {
                 synopsis={synopsis}
                 type={type}
                 mal_id={mal_id}
+                navRoutes={navRoutes[0]}
                 current={i}
                 key={i}
               />
             )
           )}
       </Animecontainer>
-      <Animecontainer type={"Upcoming Season."} to={"/upcoming"}>
+      <Animecontainer type={"Upcoming Season."} to={"/anime/upcoming"}>
         {upcomingList
           ?.slice(0, -19)
           .map(
@@ -131,6 +132,7 @@ const Trending = () => {
                 mal_id={mal_id}
                 current={i}
                 trailer={trailer}
+                navRoutes={navRoutes[1]}
                 key={i}
               />
             )
@@ -140,7 +142,6 @@ const Trending = () => {
         {topList
           .slice(0, -15)
           .map(({ title, genres, episodes, aired, score, images, synopsis, mal_id, studios, trailer }, i) => (
-            <>
               <Longcard
                 title={title}
                 genres={genres}
@@ -153,9 +154,9 @@ const Trending = () => {
                 mal_id={mal_id}
                 number={i}
                 trailer={trailer}
+                navRoutes={navRoutes[2]}
                 key={i}
               />
-            </>
           ))}
       </LongcardContainer>
     </div>

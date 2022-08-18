@@ -8,17 +8,21 @@ const Longcard = ({
   mal_id,
   trailer,
   synopsis,
-  number
+  number,
+  navRoutes,
 }) => {
 
 
-  const navigate = useNavigate()  
+  const navigate = useNavigate()
+
+  const organizedTitle = title.replace(/\s+/g, '-');
+
   return (
-    <div className="gap-4 flex flex-col px-[0.5vw] justify-center rounded-lg">
+    <div className="gap-4 flex flex-col px-[0.5vw] justify-center rounded-lg cursor-pointer">
       <div
         className="flex flex-row gap-4 mx-[10vw] h-[5vw] items-center"
         onClick={() =>
-          navigate(`anime/${mal_id}/${title}`, {
+          navigate(`anime/${navRoutes}/${mal_id}/${organizedTitle}`, {
             state: {
               title,
               synopsis,
