@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Animecard from "../components/Animecard";
 
@@ -6,6 +6,10 @@ const UpcomingPage = () => {
   const selected = useSelector((store) => store.upcoming);
   const { upcomingList } = selected;
   const navRoutes = ['trending', 'upcoming']
+
+  useEffect(() => {
+    window.scrollTo(0,0)
+  }, [])
 
 
   return (

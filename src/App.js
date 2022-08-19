@@ -4,6 +4,7 @@ import Navbar from "./misc/Navbar";
 import TrendingPage from "./page/TrendingPage";
 import UpcomingPage from "./page/UpcomingPage";
 import Anime from "./pages/Anime";
+import Error from "./pages/Error";
 import Hero from "./pages/Hero";
 import Trending from "./pages/Trending";
 
@@ -22,9 +23,16 @@ function App() {
     { name: "upcoming", path: "/anime/upcoming", to: <UpcomingPage /> },
     { name: "trending", path: "/anime/trending", to: <TrendingPage /> },
     { name: "anime", path: "/anime/:type/:id/:title", to: <Anime /> },
+    { name: "error", path: "*", to: <Error /> }
   ];
 
-  //check for Navigation Timing API support
+  useEffect(() => {
+    window.scrollTo(0,0)
+  }, [])
+
+  
+  
+
 
   return (
     <div className="App">

@@ -1,4 +1,5 @@
 import React from "react";
+import Navsearch from "../components/Navsearch";
 
 const Navbar = () => {
   return (
@@ -11,12 +12,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex flex-col text-white relative">
-        <label htmlFor="input"></label>
-        <input
-          type="text"
-          placeholder="Search Anything"
-          className="focus:outline-none bg-transparent border-b-2 border-white/50 py-1 px-2 text-xl"
-        />
+       <Navsearch />
       </div>
     </nav>
   );

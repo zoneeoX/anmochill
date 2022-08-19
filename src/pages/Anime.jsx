@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { AiFillHeart } from 'react-icons/ai'
 
@@ -13,6 +13,10 @@ const Anime = () => {
   /**
    * * TITLE, SYNOPSIS, TRAILER, IMAGES
    */
+
+   useEffect(() => {
+    window.scrollTo(0,0)
+  }, [])
 
   return (
     <div className="bg-sky-100 w-screen min-h-screen max-h-full">

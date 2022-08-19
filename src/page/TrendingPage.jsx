@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, Navigate } from "react-router-dom";
 import Animecard from "../components/Animecard";
@@ -21,6 +21,10 @@ const TrendingPage = () => {
 // } else {
 //   console.info( "This page is not reloaded");
 // }
+
+useEffect(() => {
+  window.scrollTo(0,0)
+}, [])
 
   return (
     <div className="w-screen min-h-screen max-h-full bg-sky-100 py-10">
