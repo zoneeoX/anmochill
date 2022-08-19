@@ -56,6 +56,12 @@ const Animecard = ({
       }
     >
       <div>
+      <div className="relative group">
+          <div className="absolute group-hover:bg-gradient-to-b from-transparent via-black/50 to-black/50 w-full h-[15vw] invisible group-hover:visible justify-center flex items-center">
+            <h1 className="text-white text-xl font-josef text-center p-2">{title}</h1>
+            
+          </div>
+        </div>
         <img
           src={images.jpg.large_image_url}
           className="w-[10vw] h-[15vw] rounded-lg"
@@ -63,7 +69,10 @@ const Animecard = ({
         <h2 className="truncate w-[10vw] text-gray-600 font-semibold group-hover:text-blue-500 font-exo">
           {title}
         </h2>
+        
       </div>
+
+      
 
       <div
         className={`relative ease-in-out duration-500 transition-all right-[10vw] opacity-0 group-hover:right-0 group-hover:opacity-100 font-josef`}

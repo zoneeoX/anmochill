@@ -47,7 +47,7 @@ const Navsearch = () => {
         {isEmpty ? (
           ""
         ) : (
-          <div className="absolute bg-slate-700 min-w-[20vw] max-h-[80vh] flex flex-col gap-4 font-josef rounded-lg overflow-scroll">
+          <div className="absolute bg-slate-700 min-w-[20vw] max-h-[80vh] flex flex-col gap-4 font-josef rounded-lg overflow-scroll overflow-x-hidden">
             {anime?.map(
               ({ title, images, type, synopsis, mal_id, trailer }, i) => (
                 <div
@@ -74,7 +74,7 @@ const Navsearch = () => {
                     className="w-[4vw] h-[10vh] rounded-lg"
                   />
                   <div className="flex justify-between">
-                    <h1 className="truncate w-[8vw]">{title}</h1>{" "}
+                    <h1 className="w-[8vw]">{title}</h1>{" "}
                     <h2 className="relative left-[1vw] bg-gray-400 px-2 py-1 rounded-full text-white h-fit w-fit text-sm">
                       {type}
                     </h2>
