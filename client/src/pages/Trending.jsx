@@ -154,6 +154,7 @@ const Trending = () => {
                 mal_id={mal_id}
                 number={i}
                 trailer={trailer}
+                current={i}
                 navRoutes={navRoutes[2]}
                 key={i}
               />

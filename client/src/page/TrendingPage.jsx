@@ -7,7 +7,7 @@ const TrendingPage = () => {
   let navigate = useNavigate()
   const selected = useSelector((store) => store.trending);
   const { itemList } = selected;
-  const navRoutes = ['trending', 'upcoming']
+  const navRoutes = ['trending', 'upcoming', 'top']
 
   //check for Navigation Timing API support
 // if (window.performance) {

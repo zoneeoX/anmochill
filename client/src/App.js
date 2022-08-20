@@ -6,6 +6,7 @@ import UpcomingPage from "./page/UpcomingPage";
 import Anime from "./pages/Anime";
 import Error from "./pages/Error";
 import Hero from "./pages/Hero";
+import Register from "./pages/Register";
 import Trending from "./pages/Trending";
 
 function App() {
@@ -23,7 +24,8 @@ function App() {
     { name: "upcoming", path: "/anime/upcoming", to: <UpcomingPage /> },
     { name: "trending", path: "/anime/trending", to: <TrendingPage /> },
     { name: "anime", path: "/anime/:type/:id/:title", to: <Anime /> },
-    { name: "error", path: "*", to: <Error /> }
+    { name: "register", path:"/register", to: <Register /> },
+    { name: "error", path: "*", to: <Error /> },
   ];
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Longcard = ({
@@ -10,10 +10,13 @@ const Longcard = ({
   synopsis,
   number,
   navRoutes,
+  current
 }) => {
 
 
   const navigate = useNavigate()
+  const [currently, setCurrently] = useState(current + 1)
+
 
   const organizedTitle = title.replace(/\s+/g, '-');
 
@@ -27,11 +30,13 @@ const Longcard = ({
               title,
               synopsis,
               trailer,
-              images
+              images,
+              navRoutes,
+              currently
               },
           })
         }
-      >
+      > 
         <h1 className="text-gray-400 font-bold text-2xl">#{number + 1}</h1>
         <div className="bg-white flex flex-row w-full pl-4 py-2 items-center">
           <img src={images.jpg.large_image_url} className="w-[3vw] h-[4vw]" />

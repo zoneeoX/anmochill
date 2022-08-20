@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useInView } from "react-intersection-observer";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Animecard = ({
@@ -35,9 +34,8 @@ const Animecard = ({
   }, []);
    */
 
-  const [currently, setCurrently] = useState(current + 1)
-  const organizedTitle = title.replace(/\s+/g, '-');
-
+  const [currently, setCurrently] = useState(current + 1);
+  const organizedTitle = title.replace(/\s+/g, "-");
 
   const navigate = useNavigate();
 
@@ -51,17 +49,20 @@ const Animecard = ({
             synopsis,
             trailer,
             images,
+            currently,
+            navRoutes,
           },
         })
       }
     >
       <div>
-      <div className="relative group">
-          <div className="absolute group-hover:bg-gradient-to-b from-transparent via-black/50 to-black/50 w-full h-[15vw] invisible group-hover:visible justify-center flex items-center">
-            <h1 className="text-white text-xl font-josef text-center p-2">{title}</h1>
-            
+        <div className="relative group">
+          <div className="absolute group-hover:bg-gradient-to-b from-transparent via-black/50 to-black/50 w-full h-[15vw] opacity-0 group-hover:opacity-100 duration-500 transition-all justify-center flex items-center rounded-lg">
+            <h1 className="text-white text-md font-josef text-center p-2">
+              {title}
+            </h1>
           </div>
-        </div>
+        </div>  
         <img
           src={images.jpg.large_image_url}
           className="w-[10vw] h-[15vw] rounded-lg"
@@ -69,10 +70,7 @@ const Animecard = ({
         <h2 className="truncate w-[10vw] text-gray-600 font-semibold group-hover:text-blue-500 font-exo">
           {title}
         </h2>
-        
       </div>
-
-      
 
       <div
         className={`relative ease-in-out duration-500 transition-all right-[10vw] opacity-0 group-hover:right-0 group-hover:opacity-100 font-josef`}
@@ -81,8 +79,8 @@ const Animecard = ({
           className={`
           ${
             currently % 6 === 0
-              ? "right-[11.5vw] before:bg-slate-700 before:rotate-45 before:translate-y-[2vw] before:w-[20%] before:h-[10%] before:absolute before:-z-10 z-10 before:-right-[5%]"
-              : "left-[1vw] before:bg-slate-700 before:rotate-45 before:translate-y-[4vw] before:w-[20%] before:h-[10%] before:absolute before:-z-10 z-10 before:-left-[5%]"
+              ? "right-[11.5vw] before:bg-slate-700 before:rotate-45 before:translate-y-[2vw] before:w-[20%] before:h-[10%] before:absolute before:-z-10 z-10 before:-right-[4%]"
+              : "left-[1vw] before:bg-slate-700 before:rotate-45 before:translate-y-[4vw] before:w-[20%] before:h-[10%] before:absolute before:-z-10 z-10 before:-left-[4%]"
           }
           absolute bg-slate-700 min-w-[14vw] max-w-fit min-h-[8vw] max-h-fit text-white p-5 rounded-lg select-none pointer-events-none shadow-lg shadow-black}`}
         >

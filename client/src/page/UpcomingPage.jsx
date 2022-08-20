@@ -5,7 +5,7 @@ import Animecard from "../components/Animecard";
 const UpcomingPage = () => {
   const selected = useSelector((store) => store.upcoming);
   const { upcomingList } = selected;
-  const navRoutes = ['trending', 'upcoming']
+  const navRoutes = ['trending', 'upcoming', 'top']
 
   useEffect(() => {
     window.scrollTo(0,0)

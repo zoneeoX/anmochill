@@ -29,6 +29,7 @@ const Navsearch = () => {
   const debounceOnChange = debounce(updateSearch, 500);
 
   useEffect(() => {
+    setName("");
     name.length < 1 ? setIsEmpty(true) : setIsEmpty(false);
   }, [anime]);
   return (
@@ -54,7 +55,6 @@ const Navsearch = () => {
                   key={i}
                   className="flex flex-row gap-2 cursor-pointer hover:bg-white/10 p-4"
                   onClick={() => {
-                    setName("");
 
                     navigate(
                       `/anime/search/${mal_id}/${title.replace(/\s+/g, "-")}/`,
@@ -74,7 +74,7 @@ const Navsearch = () => {
                     className="w-[4vw] h-[10vh] rounded-lg"
                   />
                   <div className="flex justify-between">
-                    <h1 className="w-[8vw]">{title}</h1>{" "}
+                    <h1 className="w-[8vw]">{title}</h1>
                     <h2 className="relative left-[1vw] bg-gray-400 px-2 py-1 rounded-full text-white h-fit w-fit text-sm">
                       {type}
                     </h2>
