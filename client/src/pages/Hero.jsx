@@ -1,6 +1,6 @@
 import React from "react";
 import { CgMenuBoxed } from "react-icons/cg";
-import { IoIosArrowDown } from 'react-icons/io'
+import { IoIosArrowDown } from "react-icons/io";
 
 import blob from "../images/blob.svg";
 
