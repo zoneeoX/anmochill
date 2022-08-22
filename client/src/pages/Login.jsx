@@ -11,7 +11,7 @@ const Login = () => {
 
   function updateData(e) {
     setFormData((prevData) => ({
-      ...prevData,  
+      ...prevData,
       [e.target.name]: e.target.value,
     }));
   }
@@ -31,10 +31,10 @@ const Login = () => {
 
     const data = await response.json();
     if (data.user) {
-      localStorage.setItem('token', data.user)
+      localStorage.setItem("token", data.user);
       alert("Log in successful");
       window.location.href = "/";
-    } else {      
+    } else {
       alert("Please check your credentials");
     }
   }

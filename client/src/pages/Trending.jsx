@@ -50,7 +50,7 @@ const Trending = () => {
   // --------------------------------------------
 
   const dispatch = useDispatch();
-  const navRoutes = ['trending', 'upcoming', 'top']
+  const navRoutes = ["trending", "upcoming", "top"];
 
   useEffect(() => {
     dispatch(fetchTrending());
@@ -141,7 +141,22 @@ const Trending = () => {
       <LongcardContainer>
         {topList
           .slice(0, -15)
-          .map(({ title, genres, episodes, aired, score, images, synopsis, mal_id, studios, trailer }, i) => (
+          .map(
+            (
+              {
+                title,
+                genres,
+                episodes,
+                aired,
+                score,
+                images,
+                synopsis,
+                mal_id,
+                studios,
+                trailer,
+              },
+              i
+            ) => (
               <Longcard
                 title={title}
                 genres={genres}
@@ -158,7 +173,8 @@ const Trending = () => {
                 navRoutes={navRoutes[2]}
                 key={i}
               />
-          ))}
+            )
+          )}
       </LongcardContainer>
     </div>
   );
