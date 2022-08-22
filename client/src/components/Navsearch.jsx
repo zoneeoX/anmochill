@@ -29,11 +29,11 @@ const Navsearch = () => {
   const debounceOnChange = debounce(updateSearch, 500);
 
   useEffect(() => {
-    setName("");
     name.length < 1 ? setIsEmpty(true) : setIsEmpty(false);
-  }, [anime]);
+  }, [anime, name]);
+
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-10 font-josef">
       <label htmlFor="input"></label>
       <input
         type="text"
@@ -55,7 +55,7 @@ const Navsearch = () => {
                   key={i}
                   className="flex flex-row gap-2 cursor-pointer hover:bg-white/10 p-4"
                   onClick={() => {
-
+                    setName("");
                     navigate(
                       `/anime/search/${mal_id}/${title.replace(/\s+/g, "-")}/`,
                       {

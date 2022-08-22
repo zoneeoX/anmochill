@@ -3,37 +3,52 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const connection = require('./db')
-const userRoutes = require('./routes/users')
-const authRoutes = require('./routes/auth')
-
-
-//connect to database
-connection()
+const connection = require("./db");
+const User = require("./models/user.model");
+const jwt = require("jsonwebtoken");
 
 // middlewares
 app.use(express.json());
 app.use(cors());
 
-app.use("/api/users", userRoutes);
-app.use("/api/auth", authRoutes)
+//connect to database
+connection();
 
+app.post("/api/register", async (req, res) => {
+  try {
+    console.log(req.body);
+    const user = await User.create({
+      name: req.body.name,
+      email: req.body.email, //if error because email has to be unique (in user.mode.js)
+      password: req.body.password,
+    });
+    res.json({ status: "ok" });
+  } catch (err) {
+    res.json({ status: "error", error: "Duplicate Email" });
+  }
+});
 
-const port = process.env.PORT
+app.post("/api/login", async (req, res) => {
+  const user = await User.findOne({
+    email: req.body.email,
+    password: req.body.password
+  });
+
+  if (user) {
+    const token = jwt.sign(
+      {
+        name: user.name,
+        email: user.email,
+      },
+      "secret123"
+    );
+    return res.json({ status: "Ok", user: token });
+  } else {
+    return res.json({ status: "error", user: false });
+  }
+});
+
+const port = process.env.PORT;
 app.listen(port, () => {
   console.log("Server is running.", port);
 });
-
-// app.get("/getUsers", (req, res) => {
-//     UserModel.find({}, (err, result) => {
-//       err ? res.json(err) : res.json(result);
-//     });
-//   });
-
-//   app.post("/postUser", async (req, res) => {
-//     const user = req.body;
-//     const newUser = UserModel(user);
-//     await newUser.save();
-
-//     res.json(user);
-//   });

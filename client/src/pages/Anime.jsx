@@ -5,7 +5,8 @@ import { useSelector } from "react-redux";
 
 const Anime = () => {
   const location = useLocation();
-  const [selectedAnime, setSelectedAnime] = useState([])
+  const [selectedAnime, setSelectedAnime] = useState([]);
+  const [isUser, setIsUser] = useState(Boolean);
   /**
    *
    * * favorite through this component by extracting the mal id (searching in the api) and then push it into an array in a slice (store)
@@ -31,24 +32,30 @@ const Anime = () => {
   let isRoutes = location.state.navRoutes;
 
   useEffect(() => {
+    let currentUser = localStorage.getItem("token");
+    currentUser ? setIsUser(true) : setIsUser(false);
     window.scrollTo(0, 0);
   }, []);
 
-
   async function addToList() {
-    // alt routes is to just dispatch and then push it  
-    switch (isRoutes) {
-      case "trending":
-        setSelectedAnime(itemList[currentIndex]);
-        break;
-      case "upcoming":
-        setSelectedAnime(upcomingList[currentIndex]);
-        break;
-      case "top":
-        setSelectedAnime(topList[currentIndex]);
-        break;
+    // alt routes is to just dispatch and then push it
+    if (isUser) {
+      switch (isRoutes) {
+        case "trending":
+          setSelectedAnime(itemList[currentIndex]);
+          break;
+        case "upcoming":
+          setSelectedAnime(upcomingList[currentIndex]);
+          break;
+        case "top":
+          setSelectedAnime(topList[currentIndex]);
+          break;
+      }
+      alert("Successfully added");
+    } else {
+      return alert("You are not logged in!");
     }
-  } 
+  }
 
   return (
     <div className="bg-sky-100 w-screen min-h-screen max-h-full">
@@ -63,7 +70,10 @@ const Anime = () => {
             src={location.state.images.jpg.large_image_url}
             className="absolute w-[15vw] h-[20vw] -top-[6vw] left-[10vw] rounded-lg shadow-lg shadow-black"
           />
-          <button className="absolute left-[10vw] top-[15.5vw] text-md bg-blue-400 px-[4.2vw] h-[4vh] rounded-sm text-white" onClick={() => addToList()}>
+          <button
+            className="absolute left-[10vw] top-[15.5vw] text-md bg-blue-400 px-[4.2vw] h-[4vh] rounded-sm text-white"
+            onClick={() => addToList()}
+          >
             Add to list
           </button>
           <button className="absolute left-[23vw] top-[15.5vw] text-md bg-red-400 px-[0.6vw] h-[4vh] rounded-sm text-white">

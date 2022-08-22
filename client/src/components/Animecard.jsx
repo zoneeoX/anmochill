@@ -53,16 +53,16 @@ const Animecard = ({
             navRoutes,
           },
         })
-      }
+      }   
     >
       <div>
         <div className="relative group">
-          <div className="absolute group-hover:bg-gradient-to-b from-transparent via-black/50 to-black/50 w-full h-[15vw] opacity-0 group-hover:opacity-100 duration-500 transition-all justify-center flex items-center rounded-lg">
+          <div className="absolute bg-gradient-to-b from-transparent via-black/0 to-black/0 group-hover:via-black/50 group-hover:to-black/50 w-full h-[15vw] opacity-0 group-hover:opacity-100 duration-500 transition-all justify-center flex items-center rounded-lg">
             <h1 className="text-white text-md font-josef text-center p-2">
               {title}
             </h1>
           </div>
-        </div>  
+        </div>
         <img
           src={images.jpg.large_image_url}
           className="w-[10vw] h-[15vw] rounded-lg"
