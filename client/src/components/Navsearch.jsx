@@ -32,6 +32,7 @@ const Navsearch = () => {
     name.length < 1 ? setIsEmpty(true) : setIsEmpty(false);
   }, [anime, name]);
 
+
   return (
     <div className="flex flex-col gap-10 font-josef">
       <label htmlFor="input"></label>
@@ -64,6 +65,10 @@ const Navsearch = () => {
                           synopsis,
                           trailer,
                           images,
+                          currently:[i],
+                          anime,
+                          navRoutes:'search'
+                          
                         },
                       }
                     );

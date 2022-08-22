@@ -12,7 +12,7 @@ const Anime = () => {
    * * favorite through this component by extracting the mal id (searching in the api) and then push it into an array in a slice (store)
    * ! theoritical
    *
-   * * Another way is to grab the index from the the "currently(index)" and then search itemList through the index and then push it in a slice (store)
+   * * Another way is to grab the index from the the "currently(index)" and then search itemList through the index and then push it in a slice (store) || this method is being used
    * ! theoritical
    */
 
@@ -27,6 +27,7 @@ const Anime = () => {
   const { itemList } = seasonNow;
   const { upcomingList } = upcoming;
   const { topList } = top;
+  const searchList = location.state.anime;
 
   let currentIndex = location.state.currently - 1;
   let isRoutes = location.state.navRoutes;
@@ -37,23 +38,40 @@ const Anime = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    console.log(selectedAnime)
+  }, [selectedAnime])
+
   async function addToList() {
     // alt routes is to just dispatch and then push it
-    if (isUser) {
-      switch (isRoutes) {
-        case "trending":
-          setSelectedAnime(itemList[currentIndex]);
-          break;
-        case "upcoming":
-          setSelectedAnime(upcomingList[currentIndex]);
-          break;
-        case "top":
-          setSelectedAnime(topList[currentIndex]);
-          break;
+    try {
+      if (isUser) {
+        switch (isRoutes) {
+          case "trending":
+            setSelectedAnime(itemList[currentIndex]);
+            break;
+          case "upcoming":
+            setSelectedAnime(upcomingList[currentIndex]);
+            break;
+          case "top":
+            setSelectedAnime(topList[currentIndex]);
+            break;
+          case "search": 
+            setSelectedAnime(searchList[currentIndex + 1])
+            /**
+             * ! 'Search' is not detected becausue it cant extract from different pages (possibly conflict between 2 sides of the road joining into one) causing overlapping
+             * ! ^ problem above has been solved not because it conflict but just a writing error
+             * ? the solution can possible by creating a slice that contain all the different routes 8/22/2022
+             * * FIXED IT BY JUST CHANGING THE PROPS FROM 'navRoutes:['{currentRoutes}']' TO 'navRoutes:'CurrentRoutes''
+             */
+            break;
+        }
+        alert("Successfully added");
+      } else {
+        return alert("You are not logged in!");
       }
-      alert("Successfully added");
-    } else {
-      return alert("You are not logged in!");
+    } catch (err) {
+      console.log({ message: "Something went wrong", err });
     }
   }
 
