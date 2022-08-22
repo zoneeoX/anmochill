@@ -18,7 +18,7 @@ const Navbar = () => {
 
   return (
     <nav className="w-screen h-[10vh] bg-slate-800 flex flex-row justify-between items-center text-primer px-[10vw] fixed z-50 filter backdrop-blur-md">
-      <div className="flex flex-row gap-2 items-end text-white">
+      <div className="flex flex-row gap-2 items-center justify-center text-white">
         <h1
           className="text-4xl flex flex-row text-white cursor-pointer"
           onClick={() => navigate("/")}
@@ -28,8 +28,8 @@ const Navbar = () => {
 
         {!isUser ? (
           <>
-            <button onClick={() => navigate("/login")}>Login</button>
-            <button onClick={() => navigate("/register")}>Register</button>
+            <button onClick={() => navigate("/login")} className="">Sign in</button>
+            <button onClick={() => navigate("/register")} className="bg-blue-400 text-lg  px-4 py-1 rounded-lg flex">Sign up</button>
           </>
         ) : (
           <>
