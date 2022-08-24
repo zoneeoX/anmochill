@@ -51,11 +51,16 @@ app.post("/api/login", async (req, res) => {
 
 app.post("/api/favorite", async (req, res) => {
   try {
+    const user = await User.findOne({
+      email: req.body.email,
+      password: req.body.password,
+    });
+
     const favorite = await Favorite.create({
       favoriteList: req.body,
     });
 
-    return res.json({ status: "ok", favorite });
+    return res.json(favorite.favoriteList[0]); //only grab first index
   } catch (err) { 
     console.log(err);
   }

@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 
 const Favorite = new mongoose.Schema(
     {
-      favoriteList: {type: Array, required: true}
+      favoriteList: {type: Array, required: true},
     },
     { collection: "user-favorite" }
   );
