@@ -5,6 +5,7 @@ const cors = require("cors");
 const app = express();
 const connection = require("./db");
 const User = require("./models/user.model");
+const Favorite = require("./models/favorite.model");
 const jwt = require("jsonwebtoken");
 
 // middlewares
@@ -31,7 +32,7 @@ app.post("/api/register", async (req, res) => {
 app.post("/api/login", async (req, res) => {
   const user = await User.findOne({
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
   });
 
   if (user) {
@@ -46,6 +47,25 @@ app.post("/api/login", async (req, res) => {
   } else {
     return res.json({ status: "error", user: false });
   }
+});
+
+app.post("/api/favorite", async (req, res) => {
+  try {
+    const favorite = await Favorite.create({
+      favoriteList: req.body,
+    });
+
+    return res.json({ status: "ok", favorite });
+  } catch (err) { 
+    console.log(err);
+  }
+
+  // const animeList = req.body.animeList;
+  // res.json({
+  //   message: "Item has been   added",
+  //   status: "Sucessful",
+  //   obj: animeList,
+  // });
 });
 
 const port = process.env.PORT;

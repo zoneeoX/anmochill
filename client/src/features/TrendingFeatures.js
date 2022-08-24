@@ -39,7 +39,7 @@ const TrendingFeatures = createSlice({
       state.isLoading = false;
       state.isError = true;
     },
-  },
+  },  
 });
 
 export default TrendingFeatures.reducer;

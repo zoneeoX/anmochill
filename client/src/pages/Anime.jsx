@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { AiFillHeart } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { fetchFavorite } from "../features/complexfeatures/Add";
 
 const Anime = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
   const [selectedAnime, setSelectedAnime] = useState([]);
   const [isUser, setIsUser] = useState(Boolean);
   /**
@@ -38,12 +41,12 @@ const Anime = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    console.log(selectedAnime)
-  }, [selectedAnime])
-
   async function addToList() {
-    // alt routes is to just dispatch and then push it
+    /**
+     * * there is 2 way we can do this
+     * ? one is through the backend where we can receive its selected anime
+     */
+
     try {
       if (isUser) {
         switch (isRoutes) {
@@ -56,8 +59,8 @@ const Anime = () => {
           case "top":
             setSelectedAnime(topList[currentIndex]);
             break;
-          case "search": 
-            setSelectedAnime(searchList[currentIndex + 1])
+          case "search":
+            setSelectedAnime(searchList[currentIndex + 1]);
             /**
              * ! 'Search' is not detected becausue it cant extract from different pages (possibly conflict between 2 sides of the road joining into one) causing overlapping
              * ! ^ problem above has been solved not because it conflict but just a writing error
@@ -66,6 +69,7 @@ const Anime = () => {
              */
             break;
         }
+
         alert("Successfully added");
       } else {
         return alert("You are not logged in!");
@@ -74,6 +78,19 @@ const Anime = () => {
       console.log({ message: "Something went wrong", err });
     }
   }
+
+  async function sendToBackend() {
+    try {
+      dispatch(fetchFavorite(selectedAnime)); 
+      console.log(selectedAnime)
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    sendToBackend();
+  }, [selectedAnime]);
 
   return (
     <div className="bg-sky-100 w-screen min-h-screen max-h-full">
@@ -89,18 +106,24 @@ const Anime = () => {
             className="absolute w-[15vw] h-[20vw] -top-[6vw] left-[10vw] rounded-lg shadow-lg shadow-black"
           />
           <button
-            className="absolute left-[10vw] top-[15.5vw] text-md bg-blue-400 px-[4.2vw] h-[4vh] rounded-sm text-white"
-            onClick={() => addToList()}
+            className="absolute left-[10vw] top-[15.5vw] text-md bg-blue-400 px-[5.5vw] h-[4vh] rounded-lg text-white"
+            onClick={() => {
+              addToList();
+            }}
           >
             Add to list
           </button>
-          <button className="absolute left-[23vw] top-[15.5vw] text-md bg-red-400 px-[0.6vw] h-[4vh] rounded-sm text-white">
+          {/* <button className="absolute left-[23vw] top-[15.5vw] text-md bg-red-400 px-[0.6vw] h-[4vh] rounded-sm text-white">
             <AiFillHeart />
-          </button>
+          </button> */}
         </div>
         <div className="ml-[28vw] top-[2vw] relative">
-          <h1 className="text-2xl">{location.state.title}</h1>
-          <p className="w-[50vw] text-sm mt-2">{location.state.synopsis}</p>
+          <h1 className="text-4xl font-exo font-medium">
+            {location.state.title}
+          </h1>
+          <p className="w-[50vw] text-md mt-2 font-josef">
+            {location.state.synopsis}
+          </p>
         </div>
       </div>
 
