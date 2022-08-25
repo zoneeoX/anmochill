@@ -60,9 +60,9 @@ const Trending = () => {
 
   return (
     <div className="w-screen min-h-screen max-h-full bg-sky-100 flex flex-col gap-10 py-[4vw]">
-      <Animecontainer type={"This Season."} to={"/anime/trending"}>
+      <Animecontainer type={"Season Now"} to={"/anime/trending"}>
         {itemList
-          ?.slice(0, -19)
+          .slice(0, -19)
           .map(
             (
               {
@@ -72,12 +72,10 @@ const Trending = () => {
                 aired,
                 score,
                 images,
-                season,
-                studios,
-                type,
-                mal_id,
-                trailer,
                 synopsis,
+                mal_id,
+                studios,
+                trailer,
               },
               i
             ) => (
@@ -88,22 +86,22 @@ const Trending = () => {
                 aired={aired}
                 score={score}
                 images={images}
-                season={season}
                 studios={studios}
-                trailer={trailer}
                 synopsis={synopsis}
-                type={type}
                 mal_id={mal_id}
-                navRoutes={navRoutes[0]}
+                number={i}
+                trailer={trailer}
                 current={i}
+                navRoutes={navRoutes[2]}
                 key={i}
               />
             )
           )}
       </Animecontainer>
+
       <Animecontainer type={"Upcoming Season."} to={"/anime/upcoming"}>
         {upcomingList
-          ?.slice(0, -19)
+          .slice(0, -19)
           .map(
             (
               {
@@ -113,10 +111,10 @@ const Trending = () => {
                 aired,
                 score,
                 images,
-                studios,
-                mal_id,
-                trailer,
                 synopsis,
+                mal_id,
+                studios,
+                trailer,
               },
               i
             ) => (
@@ -130,14 +128,16 @@ const Trending = () => {
                 studios={studios}
                 synopsis={synopsis}
                 mal_id={mal_id}
-                current={i}
+                number={i}
                 trailer={trailer}
-                navRoutes={navRoutes[1]}
+                current={i}
+                navRoutes={navRoutes[2]}
                 key={i}
               />
             )
           )}
       </Animecontainer>
+
       <LongcardContainer>
         {topList
           .slice(0, -15)

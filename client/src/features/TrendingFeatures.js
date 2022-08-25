@@ -6,13 +6,15 @@ const options = {
   params: "/seasons/now",
 };
 
+
 export const fetchTrending = createAsyncThunk(
   "trending/fetchTrending",
   async () => {
-    return await axios.request(options.baseUrl + options.params).then((res) => {
-      return res.data.data;
-    });
-  }
+      return await axios.request(options.baseUrl + options.params).then((res) => {
+          return res.data.data;
+      })
+
+}
 );
 
 const initialState = {
@@ -33,7 +35,7 @@ const TrendingFeatures = createSlice({
     [fetchTrending.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isError = false;
-      state.itemList = action.payload;
+      state.itemList = action.payload
     },
     [fetchTrending.rejected]: (state, action) => {
       state.isLoading = false;
