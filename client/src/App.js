@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./misc/Navbar";
+import FavoritePage from "./page/FavoritePage";
 import TrendingPage from "./page/TrendingPage";
 import UpcomingPage from "./page/UpcomingPage";
 import Anime from "./pages/Anime";
@@ -9,6 +10,10 @@ import Hero from "./pages/Hero";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Trending from "./pages/Trending";
+
+/**
+ * TODO: Optimize fetch (in 1 component)
+ */
 
 function App() {
   const routePath = [
@@ -26,17 +31,14 @@ function App() {
     { name: "trending", path: "/anime/trending", to: <TrendingPage /> },
     { name: "anime", path: "/anime/:type/:id/:title", to: <Anime /> },
     { name: "register", path: "/register", to: <Register /> },
-    { name: "login", path: "/login", to: <Login />},
+    { name: "login", path: "/login", to: <Login /> },
+    { name: "favorite", path: "/anime/favorite", to: <FavoritePage /> },
     { name: "error", path: "*", to: <Error /> },
   ];
 
   useEffect(() => {
-    window.scrollTo(0,0)
-  }, [])
-
-  
-  
-
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="App">
