@@ -3,140 +3,73 @@ import { useDispatch, useSelector } from "react-redux";
 import Animecard from "../components/Animecard";
 import Animecontainer from "../components/Animecontainer";
 
-import { fetchTrending } from "../features/TrendingFeatures";
-import { fetchUpcomingSeason } from "../features/UpcomingSeason";
 import { fetchTopAnime } from "../features/Top";
 import LongcardContainer from "../components/LongcardContainer";
 import Longcard from "../components/Longcard";
+import { multipleFetch } from "../features/MultipleAxiosFeature";
 
 const Trending = () => {
-  /**
-     * * This was used but it was migrated, now it is stored in redux
-     * ! though it made the code "LOOKS" more complicated but really.. it easen the reader to read this code
-     * const fetchAnime = async () => {
-        const options = {
-            baseUrl: 'https://api.jikan.moe/v4',
-            params: '/seasons/now'
-        }
  
-        
-        await axios.request(options.baseUrl + options.params).then(function (response) {
-            console.log(response.data.data);
-        }).catch(function (error) {
-            console.error(error);
-        });
-    }
- 
-    useEffect(() => {
-        fetchAnime()
-    }, [])
-     * 
-     * 
-     */
-
-  // --------------------------------------------
-  /**
-   * * alternative method but more cleaner
-   * * using useselector it grabs everything in that "feature"
-   */
-  const seasonNow = useSelector((store) => store.trending);
-  const upcoming = useSelector((store) => store.upcoming);
   const top = useSelector((store) => store.top);
+  const multi = useSelector((store) => store.multiple);
 
-  const { itemList, isError, isLoading } = seasonNow;
-  const { upcomingList } = upcoming;
   const { topList } = top;
+  const { animeList } = multi;
 
   // --------------------------------------------
 
   const dispatch = useDispatch();
-  const navRoutes = ["trending", "upcoming", "top"];
 
   useEffect(() => {
-    dispatch(fetchTrending());
-    dispatch(fetchUpcomingSeason());
     dispatch(fetchTopAnime());
+    dispatch(multipleFetch());
+    console.log('yes')
   }, [dispatch]);
 
   return (
     <div className="w-screen min-h-screen max-h-full bg-sky-100 flex flex-col gap-10 py-[4vw]">
-      <Animecontainer type={"Season Now"} to={"/anime/trending"}>
-        {itemList
-          .slice(0, -19)
-          .map(
-            (
-              {
-                title,
-                genres,
-                episodes,
-                aired,
-                score,
-                images,
-                synopsis,
-                mal_id,
-                studios,
-                trailer,
-              },
-              i
-            ) => (
-              <Animecard
-                title={title}
-                genres={genres}
-                episodes={episodes}
-                aired={aired}
-                score={score}
-                images={images}
-                studios={studios}
-                synopsis={synopsis}
-                mal_id={mal_id}
-                number={i}
-                trailer={trailer}
-                current={i}
-                navRoutes={navRoutes[2]}
-                key={i}
-              />
-            )
-          )}
-      </Animecontainer>
-
-      <Animecontainer type={"Upcoming Season."} to={"/anime/upcoming"}>
-        {upcomingList
-          .slice(0, -19)
-          .map(
-            (
-              {
-                title,
-                genres,
-                episodes,
-                aired,
-                score,
-                images,
-                synopsis,
-                mal_id,
-                studios,
-                trailer,
-              },
-              i
-            ) => (
-              <Animecard
-                title={title}
-                genres={genres}
-                episodes={episodes}
-                aired={aired}
-                score={score}
-                images={images}
-                studios={studios}
-                synopsis={synopsis}
-                mal_id={mal_id}
-                number={i}
-                trailer={trailer}
-                current={i}
-                navRoutes={navRoutes[2]}
-                key={i}
-              />
-            )
-          )}
-      </Animecontainer>
+      {animeList?.map((item) => {
+        return Object.keys(item)?.map((key, i) => {
+          return (
+            <Animecontainer type={key} to={key === 'Trending' ? '/anime/Trending' : '/anime/Upcoming'} key={i}>
+              {item[key].slice(0, -19).map(
+                (
+                  {
+                    title,
+                    genres,
+                    episodes,
+                    aired,
+                    score,
+                    images,
+                    synopsis,
+                    mal_id,
+                    studios,
+                    trailer,
+                  },
+                  i
+                ) => (
+                  <Animecard
+                    title={title}
+                    genres={genres}
+                    episodes={episodes}
+                    aired={aired}
+                    score={score}
+                    images={images}
+                    studios={studios}
+                    synopsis={synopsis}
+                    mal_id={mal_id}
+                    number={i}
+                    trailer={trailer}
+                    current={i}
+                    navRoutes={key}
+                    key={i}
+                  />
+                )
+              )}
+            </Animecontainer>
+          );
+        });
+      })}
 
       <LongcardContainer>
         {topList
@@ -170,7 +103,7 @@ const Trending = () => {
                 number={i}
                 trailer={trailer}
                 current={i}
-                navRoutes={navRoutes[2]}
+                navRoutes={'Top'}
                 key={i}
               />
             )

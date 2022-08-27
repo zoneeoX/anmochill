@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import Animecard from "../components/Animecard";
+import { multipleFetch } from "../features/MultipleAxiosFeature";
 
 const TrendingPage = () => {
-  let navigate = useNavigate()
-  const selected = useSelector((store) => store.trending);
-  const { itemList } = selected;
-  const navRoutes = ['trending', 'upcoming', 'top']
+  const dispatch = useDispatch()
+  const multi = useSelector((store) => store.multiple)
+  const { animeList } = multi
 
   //check for Navigation Timing API support
 // if (window.performance) {
@@ -24,7 +23,8 @@ const TrendingPage = () => {
 
 useEffect(() => {
   window.scrollTo(0,0)
-}, [])
+  dispatch(multipleFetch())
+}, [dispatch])
 
   return (
     <div className="w-screen min-h-screen max-h-full bg-sky-100 py-10">
@@ -33,7 +33,7 @@ useEffect(() => {
         This Season.
       </h1>
       <div className="grid grid-cols-6 gap-10 mx-[10vw]">
-        {itemList.map(
+        {animeList.length > 0 && animeList[0]['Trending'].map(
           (
             {
               title,
@@ -64,7 +64,7 @@ useEffect(() => {
               synopsis={synopsis}
               type={type}
               mal_id={mal_id}
-              navRoutes={navRoutes[0]}
+              navRoutes={'Trending'}
               current={i}
               key={i}
             />

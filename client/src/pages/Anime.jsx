@@ -10,6 +10,7 @@ const Anime = () => {
   const dispatch = useDispatch();
   const [selectedAnime, setSelectedAnime] = useState([]);
   const [isUser, setIsUser] = useState(Boolean);
+  const [filteredFav, setFilteredFav] = useState(Array)
   /**
    *
    * * favorite through this component by extracting the mal id (searching in the api) and then push it into an array in a slice (store)
@@ -23,13 +24,15 @@ const Anime = () => {
    * * TITLE, SYNOPSIS, TRAILER, IMAGES
    */
 
-  const seasonNow = useSelector((store) => store.trending);
-  const upcoming = useSelector((store) => store.upcoming);
+  const multi = useSelector((store) => store.multiple);
   const top = useSelector((store) => store.top);
+  const fav = useSelector((store) => store.favorite)
 
-  const { itemList } = seasonNow;
-  const { upcomingList } = upcoming;
   const { topList } = top;
+  const { animeList } = multi;
+  const { favoriteList } = fav;
+
+
   const searchList = location.state.anime;
 
   let currentIndex = location.state.currently - 1;
@@ -50,11 +53,11 @@ const Anime = () => {
     try {
       if (isUser) {
         switch (isRoutes) {
-          case "trending":
-            setSelectedAnime(itemList[currentIndex]);
+          case "Trending":
+            setSelectedAnime(animeList[0]["Trending"][currentIndex]);
             break;
-          case "upcoming":
-            setSelectedAnime(upcomingList[currentIndex]);
+          case "Upcoming":
+            setSelectedAnime(animeList[0]["Upcoming"][currentIndex]);
             break;
           case "top":
             setSelectedAnime(topList[currentIndex]);
@@ -81,8 +84,8 @@ const Anime = () => {
 
   async function sendToBackend() {
     try {
-      dispatch(fetchFavorite(selectedAnime)); 
-      console.log(selectedAnime)
+      dispatch(fetchFavorite(selectedAnime));
+
     } catch (err) {
       console.log(err);
     }
@@ -91,6 +94,16 @@ const Anime = () => {
   useEffect(() => {
     sendToBackend();
   }, [selectedAnime]);
+
+  useEffect(() => {
+    var filtered = favoriteList.filter(function (el) {
+      return el !== ''
+    })
+
+    setFilteredFav(filtered)
+    console.log(filtered)
+
+  }, [favoriteList])
 
   return (
     <div className="bg-sky-100 w-screen min-h-screen max-h-full">

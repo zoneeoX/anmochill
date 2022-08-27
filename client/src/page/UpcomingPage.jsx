@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Animecard from "../components/Animecard";
+import { multipleFetch } from "../features/MultipleAxiosFeature";
 
 const UpcomingPage = () => {
-  const selected = useSelector((store) => store.upcoming);
-  const { upcomingList } = selected;
-  const navRoutes = ['trending', 'upcoming', 'top']
+  const multi = useSelector((store) => store.multiple)
+  const { animeList } = multi;
+  const dispatch = useDispatch()
 
   useEffect(() => {
     window.scrollTo(0,0)
-  }, [])
+    dispatch(multipleFetch())
+  }, [dispatch])
 
 
   return (
@@ -18,7 +20,7 @@ const UpcomingPage = () => {
         Upcoming Season.
       </h1>
       <div className="grid grid-cols-6 gap-10 mx-[10vw]">
-        {upcomingList.map(
+        {animeList.length > 0 && animeList[0]['Upcoming'].map(
           (
             {
               title,
@@ -49,7 +51,7 @@ const UpcomingPage = () => {
               synopsis={synopsis}
               type={type}
               mal_id={mal_id}
-              navRoutes={navRoutes[1]}
+              navRoutes={'Upcoming'}
               current={i}
               key={i}
             />
