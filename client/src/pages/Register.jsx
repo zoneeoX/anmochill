@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { register, reset } from "../features/authSlice";
+
 import axios from "axios";
 
 const Register = () => {
@@ -6,9 +10,17 @@ const Register = () => {
     name: "",
     email: "",
     password: "",
+    password2: "",
   });
 
-  const { name, email, password } = formData;
+  const { name, email, password, password2 } = formData;
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (store) => store.auth
+  );
 
   function updateData(e) {
     setFormData((prevData) => ({
@@ -17,36 +29,51 @@ const Register = () => {
     }));
   }
 
-  async function registerUser(e) {
+  const onSubmit = (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:3001/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        password,
-      }),
-    });
 
-    const data = await response.json();
-    window.location.href = "/login";
-  }
+    if (password !== password2) {
+      alert("Error Password do not match");
+    } else {
+      const userData = {
+        name, email, password
+      }
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+      dispatch(register(userData))
+    }
+  };
+
+  // async function registerUser(e) {
+  //   e.preventDefault();
+  //   const response = await fetch("http://localhost:3001/api/users", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       name,
+  //       email,
+  //       password,
+  //     }),
+  //   });
+
+  //   const data = await response.json();
+  //   window.location.href = "/login";
+  // }
+
+  // useEffect(() => {
+  //   console.log(formData);
+  // }, [formData]);
 
   return (
     <div className="w-screen h-screen bg-sky-100 flex justify-center items-center font-josef">
-      <div className="w-[20vw] h-[50vh] bg-slate-800 flex justify-center items-center">
+      <div className="w-[20vw] h-[60.8vh] bg-slate-800 flex justify-center items-center">
         <h1 className="text-white text-4xl">Register</h1>
       </div>
       <form
-        className="bg-slate-900 flex flex-col w-[40vw] h-[50vh] text-white text-2xl p-10 gap-10"
-        onSubmit={registerUser}
+        className="bg-slate-900 flex flex-col w-[40vw] min-h-[50vh] max-h-fit text-white text-2xl p-10 gap-10"
+        // onSubmit={registerUser}
+        onSubmit={onSubmit}
       >
         <label className="flex flex-col">
           Name
@@ -76,6 +103,17 @@ const Register = () => {
             type="password"
             name="password"
             placeholder="Password"
+            className="bg-transparent border-b-2 border-white/50 focus:outline-none"
+            autoComplete="off"
+            onChange={updateData}
+          />
+        </label>
+        <label className="flex flex-col">
+          Confirm Password
+          <input
+            type="password"
+            name="password2"
+            placeholder="Confirm Password"
             className="bg-transparent border-b-2 border-white/50 focus:outline-none"
             autoComplete="off"
             onChange={updateData}

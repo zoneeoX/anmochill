@@ -7,8 +7,10 @@ const {
   deleteAnime,
 } = require("../controller/acController");
 
-router.route('/').get(getAnime).post(addAnime)
-router.route('/:id').delete(deleteAnime).put(editAnime)
+const { protect } = require('../middleware/authMiddleware')
+
+router.route('/').get(protect, getAnime).post(protect, addAnime)
+router.route('/:id').delete(protect, deleteAnime).put(protect, editAnime)
 
 
 module.exports = router;

@@ -1,11 +1,9 @@
 const asyncHandler = require("express-async-handler");
-const Ac = require('../models/acModel')
-
-
+const Ac = require("../models/acModel");
+const User = require("../models/userModel");
 
 const getAnime = asyncHandler(async (req, res) => {
-  const anime = await Ac.find()
-
+  const anime = await Ac.find({ user: req.user.id });
 
   res.status(200).json(anime);
 });
@@ -17,43 +15,70 @@ const addAnime = asyncHandler(async (req, res) => {
   }
 
   const anime = await Ac.create({
-    text: req.body.text
-  })
+    text: req.body.text,
+    user: req.user.id,
+  });
 
   res.status(200).json(anime);
 });
 
 const editAnime = asyncHandler(async (req, res) => {
-  const anime = await Ac.findById(req.params.id)
+  // Ac find by id di cari di database mongodb
+  const anime = await Ac.findById(req.params.id);
 
-  if(!anime){
-    res.status(400)
-    throw new Error('Anime Not Found')
+  //kalo ngak ada bakal throw error
+  if (!anime) {
+    res.status(400);
+    throw new Error("Anime Not Found");
   }
 
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+
+  //make sure the logged in user matches the goal user
+  if (anime.user.toString() !== user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+
+  //kita cari id nya didalam database dan kita update, kita pass id(didalam url) dan kita pass body juga (modified textnya di dalam body)
   const editedAnime = await Ac.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
-  })
-
+  });
 
   res.status(200).json(editedAnime);
 });
 
 const deleteAnime = asyncHandler(async (req, res) => {
-  const anime = await Ac.findById(req.params.id)
+  const anime = await Ac.findById(req.params.id);
 
-  if(!anime){
-    res.status(400)
-    throw new Error('Anime Not Found')
-
+  if (!anime) {
+    res.status(400);
+    throw new Error("Anime Not Found");
   }
 
-  await anime.remove()
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+
+  //make sure the logged in user matches the goal user
+  if (anime.user.toString() !== user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+
+  await anime.remove();
 
   // const deleted = await Ac.findByIdAndDelete(req.params.id)
 
-
-  res.status(200).json({id: req.params.id});
+  res.status(200).json({ id: req.params.id });
 });
 
 module.exports = {
