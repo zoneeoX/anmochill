@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const { errorHandler } = require('./middleware/errorMiddleware')
 const connection = require("./db");
 const User = require("./models/user.model");
 const Favorite = require("./models/favorite.model");
@@ -10,6 +11,7 @@ const jwt = require("jsonwebtoken");
 
 // middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 //connect to database
@@ -49,29 +51,33 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-app.post("/api/favorite", async (req, res) => {
-  try {
-    const user = await User.findOne({
-      email: req.body.email,
-      password: req.body.password,
-    });
+app.use("/api/anime", require("./routes/acRoutes"));
 
-    const favorite = await Favorite.create({
-      favoriteList: req.body,
-    });
+// app.post("/api/favorite", async (req, res) => {
+//   try {
+//     const user = await User.findOne({
+//       email: req.body.email,
+//       password: req.body.password,
+//     });
 
-    return res.json(favorite.favoriteList[0]); //only grab first index
-  } catch (err) { 
-    console.log(err);
-  }
+//     const favorite = await Favorite.create({
+//       favoriteList: req.body,
+//     });
 
-  // const animeList = req.body.animeList;
-  // res.json({
-  //   message: "Item has been   added",
-  //   status: "Sucessful",
-  //   obj: animeList,
-  // });
-});
+//     return res.json(favorite.favoriteList[0]); //only grab first index
+//   } catch (err) {
+//     console.log(err);
+//   }
+
+// const animeList = req.body.animeList;
+// res.json({
+//   message: "Item has been   added",
+//   status: "Sucessful",
+//   obj: animeList,
+// });
+// });
+
+app.use(errorHandler)
 
 const port = process.env.PORT;
 app.listen(port, () => {

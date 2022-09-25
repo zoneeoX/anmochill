@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./misc/Navbar";
-import FavoritePage from "./page/FavoritePage";
 import TrendingPage from "./page/TrendingPage";
+import Dashboard from "./page/Dashboard";
 import UpcomingPage from "./page/UpcomingPage";
+import AdvancedSearch from "./pages/AdvancedSearch";
 import Anime from "./pages/Anime";
 import Error from "./pages/Error";
 import Hero from "./pages/Hero";
@@ -32,7 +33,8 @@ function App() {
     { name: "anime", path: "/anime/:type/:id/:title", to: <Anime /> },
     { name: "register", path: "/register", to: <Register /> },
     { name: "login", path: "/login", to: <Login /> },
-    { name: "favorite", path: "/anime/favorite", to: <FavoritePage /> },
+    { name: "dashboard", path: "/dashboard", to: <Dashboard /> },
+    { name: "advanced", path: "/anime/advancedsearch", to: <AdvancedSearch /> },
     { name: "error", path: "*", to: <Error /> },
   ];
 

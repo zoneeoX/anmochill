@@ -4,13 +4,15 @@ import { AiFillHeart } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { fetchFavorite } from "../features/complexfeatures/Add";
+import { filteredFavorite } from "../features/complexfeatures/Add";
+import { addAnime } from "../features/newfeature/addSlice"
 
 const Anime = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const [selectedAnime, setSelectedAnime] = useState([]);
   const [isUser, setIsUser] = useState(Boolean);
-  const [filteredFav, setFilteredFav] = useState(Array)
+  const [filteredFav, setFilteredFav] = useState(Array);
   /**
    *
    * * favorite through this component by extracting the mal id (searching in the api) and then push it into an array in a slice (store)
@@ -26,12 +28,11 @@ const Anime = () => {
 
   const multi = useSelector((store) => store.multiple);
   const top = useSelector((store) => store.top);
-  const fav = useSelector((store) => store.favorite)
+  const fav = useSelector((store) => store.favorite);
 
   const { topList } = top;
   const { animeList } = multi;
   const { favoriteList } = fav;
-
 
   const searchList = location.state.anime;
 
@@ -59,7 +60,7 @@ const Anime = () => {
           case "Upcoming":
             setSelectedAnime(animeList[0]["Upcoming"][currentIndex]);
             break;
-          case "top":
+          case "Top":
             setSelectedAnime(topList[currentIndex]);
             break;
           case "search":
@@ -82,31 +83,39 @@ const Anime = () => {
     }
   }
 
-  async function sendToBackend() {
-    try {
-      dispatch(fetchFavorite(selectedAnime));
+  // async function sendToBackend() {
+  //   try {
+  //     dispatch(fetchFavorite(selectedAnime));
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
 
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  // useEffect(() => {
+  //   sendToBackend();
+  // }, [selectedAnime]);
 
-  useEffect(() => {
-    sendToBackend();
-  }, [selectedAnime]);
+  // useEffect(() => {
+  //   var filtered = favoriteList.filter(function (el) {
+  //     return el !== "";
+  //   });
 
-  useEffect(() => {
-    var filtered = favoriteList.filter(function (el) {
-      return el !== ''
-    })
+  //   setFilteredFav(filtered);
+  //   dispatch(filteredFavorite(filtered));
+  // }, [selectedAnime]);
 
-    setFilteredFav(filtered)
-    console.log(filtered)
+  const onSubmit = (e) => {
+    e.preventDefault();
 
-  }, [favoriteList])
+    dispatch(addAnime(selectedAnime));
+    setSelectedAnime([]);
+  };
 
   return (
-    <div className="bg-sky-100 w-screen min-h-screen max-h-full">
+    <form
+      className="bg-sky-100 w-screen min-h-screen max-h-full"
+      onSubmit={onSubmit}
+    >
       <img
         src={location.state.trailer.images.maximum_image_url}
         className="w-screen h-[100%] object-cover object-center fixed"
@@ -118,14 +127,11 @@ const Anime = () => {
             src={location.state.images.jpg.large_image_url}
             className="absolute w-[15vw] h-[20vw] -top-[6vw] left-[10vw] rounded-lg shadow-lg shadow-black"
           />
-          <button
-            className="absolute left-[10vw] top-[15.5vw] text-md bg-blue-400 px-[5.5vw] h-[4vh] rounded-lg text-white"
-            onClick={() => {
-              addToList();
-            }}
-          >
-            Add to list
+
+          <button className="absolute left-[10vw] top-[15.5vw] w-[15vw] text-md bg-blue-400 px-[5.5vw] h-[4vh] rounded-lg text-white">
+            Add to List
           </button>
+          
           {/* <button className="absolute left-[23vw] top-[15.5vw] text-md bg-red-400 px-[0.6vw] h-[4vh] rounded-sm text-white">
             <AiFillHeart />
           </button> */}
@@ -141,7 +147,7 @@ const Anime = () => {
       </div>
 
       <div className="w-screen h-screen bg-sky-100 relative top-[25vw]"></div>
-    </div>
+    </form>
   );
 };
 

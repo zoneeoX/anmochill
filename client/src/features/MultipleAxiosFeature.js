@@ -40,7 +40,7 @@ export const multipleFetch = createAsyncThunk(
 const initialState = {
   name: "anime",
   animeList: [],
-  isLoading: false,
+  isLoadingCard: false,
   isError: false,
 };
 
@@ -51,16 +51,16 @@ const MultipleAxiosFeature = createSlice({
   extraReducers(builder) {
     builder
       .addCase(multipleFetch.pending, (state, action) => {
-        state.isLoading = true;
+        state.isLoadingCard = true;
         state.isError = false;
       })
       .addCase(multipleFetch.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.isLoadingCard = false;
         state.animeList = action.payload;
         state.isError = false;
       })
       .addCase(multipleFetch, (state, action) => {
-        state.isLoading = false;
+        state.isLoadingCard = false;
         state.isError = true;
       });
   },

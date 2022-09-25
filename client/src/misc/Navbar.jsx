@@ -51,7 +51,7 @@ const Navbar = () => {
             >
               Logout
             </button>
-            <button className="text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-700  rounded-lg px-4 py-1 hover:scale-110 duration-200">
+            <button className="text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-700  rounded-lg px-4 py-1 hover:scale-110 duration-200" onClick={() => navigate('/anime/advancedsearch')}>
               Advanced Search
             </button>
             <button className="text-white bg-gradient-to-r from-red-300 via-red-600 to-red-700  rounded-lg px-4 py-1 hover:scale-110 duration-200">

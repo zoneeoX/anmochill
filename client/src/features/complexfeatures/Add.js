@@ -53,7 +53,11 @@ export const fetchFavorite = createAsyncThunk(
 const favoriteFeature = createSlice({
   name: "favorite",
   initialState,
-  reducers: {},
+  reducers: {
+    filteredFavorite: (state,action) => {
+      state.favoriteList = action.payload
+    }
+  },
   extraReducers: {
     [fetchFavorite.pending]: (state, action) => {
       state.isLoading = true;
@@ -71,4 +75,5 @@ const favoriteFeature = createSlice({
   },
 });
 
+export const { filteredFavorite } = favoriteFeature.actions
 export default favoriteFeature.reducer;
