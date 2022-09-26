@@ -69,10 +69,7 @@ const Trending = () => {
                         studios={studios}
                         synopsis={synopsis}
                         mal_id={mal_id}
-                        number={i}
                         trailer={trailer}
-                        current={i}
-                        navRoutes={key}
                         key={i}
                       />
                     )
@@ -117,8 +114,6 @@ const Trending = () => {
                   mal_id={mal_id}
                   number={i}
                   trailer={trailer}
-                  current={i}
-                  navRoutes={"Top"}
                   key={i}
                 />
               )

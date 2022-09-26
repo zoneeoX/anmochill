@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";     
+import { useNavigate } from "react-router-dom";
 
 const Animecard = ({
   title,
@@ -15,7 +15,7 @@ const Animecard = ({
   trailer,
   synopsis,
 
-  current,
+  currently,
   navRoutes,
 }) => {
   /**
@@ -34,26 +34,15 @@ const Animecard = ({
   }, []);
    */
 
-  const [currently, setCurrently] = useState(current + 1);
   const organizedTitle = title.replace(/\s+/g, "-");
-
   const navigate = useNavigate();
 
   return (
     <div
       className="flex group mt-4 cursor-pointer"
       onClick={() =>
-        navigate(`/anime/${navRoutes}/${mal_id}/${organizedTitle}/`, {
-          state: {
-            title,
-            synopsis,
-            trailer,
-            images,
-            currently,
-            navRoutes,
-          },
-        })
-      }   
+        navigate(`/anime/${navRoutes}/${mal_id}/${organizedTitle}/`)
+      }
     >
       <div>
         <div className="relative group">

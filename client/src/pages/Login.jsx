@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { login, reset } from "../features/authSlice";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +12,25 @@ const Login = () => {
 
   const { email, password } = formData;
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (store) => store.auth
+  );
+
+  useEffect(() => {
+    if (isError) {
+      alert("Error");
+    }
+
+    if (isSuccess || user) {
+      navigate("/");
+    }
+
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+
   function updateData(e) {
     setFormData((prevData) => ({
       ...prevData,
@@ -16,32 +38,43 @@ const Login = () => {
     }));
   }
 
-  async function registerUser(e) {
-    e.preventDefault();
-    const response = await fetch("http://localhost:3001/api/users/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
-
-    const data = await response.json();
-    if (data.user) {
-      localStorage.setItem("token", data.user);
-      alert("Log in successful");
-      window.location.href = "/";
-    } else {
-      alert("Please check your credentials");
+  const onSubmit = (e) => {
+    e.preventDefault()
+    const userData = {
+      email,
+      password
     }
+
+    dispatch(login(userData))
+    
   }
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+  // async function registerUser(e) {
+  //   e.preventDefault();
+  //   const response = await fetch("http://localhost:3001/api/users/login", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       email,
+  //       password,
+  //     }),
+  //   });
+
+  //   const data = await response.json();
+  //   if (data.user) {
+  //     localStorage.setItem("token", data.user);
+  //     alert("Log in successful");
+  //     window.location.href = "/";
+  //   } else {
+  //     alert("Please check your credentials");
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   console.log(formData);
+  // }, [formData]);
 
   return (
     <div className="w-screen h-screen bg-sky-100 flex justify-center items-center font-josef">
@@ -50,7 +83,7 @@ const Login = () => {
       </div>
       <form
         className="bg-slate-900 flex flex-col w-[40vw] h-[50vh] text-white text-2xl p-10 gap-10"
-        onSubmit={registerUser}
+        onSubmit={onSubmit}
       >
         <label className="flex flex-col">
           Email
@@ -79,7 +112,7 @@ const Login = () => {
           type="submit"
           className="bg-slate-800 p-2 rounded-full mt-[4vh] hover:brightness-125 duration-200"
         >
-          Register User.
+          Login User.
         </button>
       </form>
     </div>

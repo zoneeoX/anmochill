@@ -7,11 +7,11 @@ import blob from "../images/blob.svg";
 const Hero = () => {
   return (
     <>
-      <img
+      {/* <img
         src={blob}
         className="w-[100%] h-full absolute -z-50 object-cover bg-gradient-to-b from-teal-900 to-slate-900 object-center"
-      />
-      <div className="w-screen h-screen flex justify-center items-center flex-col">
+      /> */}
+      <div className="w-screen h-[80vh] flex justify-center items-center flex-col bg-slate-800">
         <h1 className="text-8xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-slate-500 w-fit font-exo">
           Anmo<span>Chill</span>
         </h1>
@@ -27,7 +27,7 @@ const Hero = () => {
           For the Anime & Movie community, Made by{" "}
           <span className="text-blue-400">zoneeox</span>
         </p>
-        <div className="relative top-[25vh] group hover:scale-110 duration-100">
+        <div className="relative top-[10vh] mt-10 group hover:scale-110 duration-100">
           <button className="relative w-[5vh] h-[5vh] text-white rounded-full bg-white/10 border-2 border-white/10 hover:bg-white/100 hover:text-black transiion-all shadow-white items-center flex justify-center text-2xl transition-all duration-100">
             <IoIosArrowDown />
           </button>

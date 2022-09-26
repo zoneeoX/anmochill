@@ -20,7 +20,7 @@ const LongcardSkeleton = () => {
                   .fill()
                   .map((genre, idx) => {
                     return (
-                      <div className="bg-slate-600 w-[4vw] h-[1.5vh] rounded-lg animate-pulse top-[4vh] relative" />
+                      <div className="bg-slate-600 w-[4vw] h-[1.5vh] rounded-lg animate-pulse top-[4vh] relative" key={idx}/>
                     );
                   })}
               </div>

@@ -32,15 +32,13 @@ const editAnime = asyncHandler(async (req, res) => {
     throw new Error("Anime Not Found");
   }
 
-  const user = await User.findById(req.user.id);
-
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error("User not found");
   }
 
   //make sure the logged in user matches the goal user
-  if (anime.user.toString() !== user.id) {
+  if (anime.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("User not authorized");
   }
@@ -61,15 +59,13 @@ const deleteAnime = asyncHandler(async (req, res) => {
     throw new Error("Anime Not Found");
   }
 
-  const user = await User.findById(req.user.id);
-
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error("User not found");
   }
 
   //make sure the logged in user matches the goal user
-  if (anime.user.toString() !== user.id) {
+  if (anime.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("User not authorized");
   }

@@ -22,6 +22,17 @@ const Register = () => {
     (store) => store.auth
   );
 
+  useEffect(() => {
+    if (isError) {
+      alert("Error");
+    }
+
+    if (isSuccess || user) {
+      navigate("/");
+      dispatch(reset());
+    }
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+
   function updateData(e) {
     setFormData((prevData) => ({
       ...prevData,
@@ -36,10 +47,12 @@ const Register = () => {
       alert("Error Password do not match");
     } else {
       const userData = {
-        name, email, password
-      }
+        name,
+        email,
+        password,
+      };
 
-      dispatch(register(userData))
+      dispatch(register(userData));
     }
   };
 
