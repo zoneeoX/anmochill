@@ -34,6 +34,7 @@ const Animecard = ({
   }, []);
    */
 
+
   const organizedTitle = title.replace(/\s+/g, "-");
   const navigate = useNavigate();
 
@@ -41,7 +42,7 @@ const Animecard = ({
     <div
       className="flex group mt-4 cursor-pointer"
       onClick={() =>
-        navigate(`/anime/${navRoutes}/${mal_id}/${organizedTitle}/`)
+        navigate(`/anime/${mal_id}/${organizedTitle}/`)
       }
     >
       <div>

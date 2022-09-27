@@ -70,7 +70,7 @@ const TrendingPage = () => {
                   type={type}
                   mal_id={mal_id}
                   navRoutes={"Trending"}
-                  current={i}
+                  currently={i + 1}
                   key={i}
                 />
               )

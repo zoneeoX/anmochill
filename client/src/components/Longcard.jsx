@@ -25,7 +25,7 @@ const Longcard = ({
       <div
         className="flex flex-row gap-4 mx-[10vw] h-[5vw] items-center"
         onClick={() =>
-          navigate(`anime/${navRoutes}/${mal_id}/${organizedTitle}`, {
+          navigate(`anime/${mal_id}/${organizedTitle}`, {
             state: {
               title,
               synopsis,

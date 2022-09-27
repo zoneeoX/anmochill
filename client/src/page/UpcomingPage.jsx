@@ -52,12 +52,12 @@ const UpcomingPage = () => {
                   images={images}
                   season={season}
                   studios={studios}
-                  trailer={trailer}
+                  trailer={trailer} 
                   synopsis={synopsis}
                   type={type}
                   mal_id={mal_id}
                   navRoutes={"Upcoming"}
-                  current={i}
+                  currently={i + 1}
                   key={i}
                 />
               )

@@ -70,6 +70,7 @@ const Trending = () => {
                         synopsis={synopsis}
                         mal_id={mal_id}
                         trailer={trailer}
+                        currently={i + 1}
                         key={i}
                       />
                     )

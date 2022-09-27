@@ -30,7 +30,7 @@ function App() {
     { name: "watchlist", path: "/watchlist" },
     { name: "upcoming", path: "/anime/Upcoming", to: <UpcomingPage /> },
     { name: "trending", path: "/anime/Trending", to: <TrendingPage /> },
-    { name: "anime", path: "/anime/:type/:id/:title", to: <Anime /> },
+    { name: "anime", path: "/anime/:id/:title", to: <Anime /> },
     { name: "register", path: "/register", to: <Register /> },
     { name: "login", path: "/login", to: <Login /> },
     { name: "library", path: "/library", to: <Library /> },

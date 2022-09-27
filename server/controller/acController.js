@@ -9,13 +9,13 @@ const getAnime = asyncHandler(async (req, res) => {
 });
 
 const addAnime = asyncHandler(async (req, res) => {
-  if (!req.body.text) {
+  if (!req.body.status) {
     res.status(400);
     throw new Error("Something went wrong!, the sending request is empty");
   }
 
   const anime = await Ac.create({
-    text: req.body.text,
+    status: req.body.status,
     user: req.user.id,
   });
 

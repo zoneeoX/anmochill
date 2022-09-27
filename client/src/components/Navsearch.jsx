@@ -58,7 +58,7 @@ const Navsearch = () => {
                   onClick={() => {
                     setName("");
                     navigate(
-                      `/anime/search/${mal_id}/${title.replace(/\s+/g, "-")}/`,
+                      `/anime/${mal_id}/${title.replace(/\s+/g, "-")}/`,
                       {
                         state: {
                           title,
