@@ -32,6 +32,9 @@ const editAnime = asyncHandler(async (req, res) => {
     throw new Error("Anime Not Found");
   }
 
+  // dispatch(editFromLibrary(status, currentAnime._id));
+
+
   if (!req.user) {
     res.status(401);
     throw new Error("User not found");
@@ -44,7 +47,7 @@ const editAnime = asyncHandler(async (req, res) => {
   }
 
   //kita cari id nya didalam database dan kita update, kita pass id(didalam url) dan kita pass body juga (modified textnya di dalam body)
-  const editedAnime = await Ac.findByIdAndUpdate(req.params.id, req.body, {
+  const editedAnime = await Ac.findByIdAndUpdate(req.params.id, req.body.status, {
     new: true,
   });
 

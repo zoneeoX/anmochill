@@ -1,33 +1,56 @@
-import axios from 'axios'
+import axios from "axios";
 
-const API_URL = '/api/anime/'
-
+const API_URL = "/api/anime/";
 
 const addAnime = async (animeData, token) => {
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    }
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
-    const response = await axios.post(API_URL, animeData, config)
-    return response.data
-}
+  const response = await axios.post(API_URL, animeData, config);
+  return response.data;
+};
 
 const getUserAnime = async (token) => {
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    }
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
-    const response = await axios.get(API_URL, config)
-    return response.data
-}
+  const response = await axios.get(API_URL, config);
+  return response.data;
+};
+
+const removeAnime = async (animeId, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.delete(API_URL + animeId, config);
+  return response.data;
+};
+
+const editAnime = async (animeId, animeData, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.put(API_URL + animeId, animeData, config);
+  return response.data;
+};
 
 const addService = {
-    addAnime,
-    getUserAnime,
-}
+  addAnime,
+  getUserAnime,
+  removeAnime,
+  editAnime,
+};
 
-export default addService
+export default addService;

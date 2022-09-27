@@ -45,6 +45,42 @@ export const getUserAnime = createAsyncThunk(
   }
 );
 
+export const removeFromLibrary = createAsyncThunk(
+  "anime/remove",
+  async (id, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await addService.removeAnime(id, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const editFromLibrary = createAsyncThunk(
+  "anime/edit",
+  async (animeData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await addService.editAnime(animeData, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const addSlice = createSlice({
   name: "add",
   initialState,
@@ -73,9 +109,39 @@ export const addSlice = createSlice({
       .addCase(getUserAnime.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.addedAnime = action.payload
+        state.addedAnime = action.payload;
       })
       .addCase(getUserAnime.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+
+      .addCase(removeFromLibrary.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(removeFromLibrary.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.addedAnime = state.addedAnime.filter(
+          (anime) => anime._id !== action.payload.id
+        );
+      })
+      .addCase(removeFromLibrary.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+
+      .addCase(editFromLibrary.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(editFromLibrary.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.addedAnime = action.payload;
+      })
+      .addCase(editFromLibrary.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
