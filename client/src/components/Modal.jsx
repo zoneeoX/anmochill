@@ -6,7 +6,7 @@ const Modal = ({ setOpenModal }) => {
   const { currentAnime } = useSelector((store) => store.searchId);
 
   const [status, setStatus] = useState({
-    status: "",
+    currentStatus: "",
     episode: "",
     currentAnime,
   });
@@ -64,7 +64,7 @@ const Modal = ({ setOpenModal }) => {
       <section className="bg-sky-100 w-[60vw] h-[45vh] relative -z-10 grid grid-cols-3 px-10 py-20">
         <label className="flex flex-col">
           Status
-          <select onChange={onChange} name="status" value={status.status} required>
+          <select onChange={onChange} name="currentStatus" value={status.currentStatus} required>
             <option value="" disabled hidden>
               Status
             </option>

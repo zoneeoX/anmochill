@@ -4,17 +4,20 @@ import { removeFromLibrary, editFromLibrary } from "../features/add/addSlice";
 
 const EditModal = ({ currentAnime, setOpenModal, i }) => {
   const dispatch = useDispatch();
+
+  const nowAnime = currentAnime.status['currentAnime']
   const [status, setStatus] = useState({
-    status: "",
+    id: currentAnime._id,
+    currentStatus: "",
     episode: "",
-    currentAnime,
+    nowAnime,
   });
 
-  const id = currentAnime._id;
+
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(editFromLibrary({ id, status }));
+    dispatch(editFromLibrary({status}));
     setOpenModal(false);
   };
 
@@ -73,9 +76,9 @@ const EditModal = ({ currentAnime, setOpenModal, i }) => {
           Status
           <select
             onChange={onChange}
-            name="status"
+            name="currentStatus"
             required
-            value={status.status}
+            value={status.currentStatus}
           >
             <option value="" disabled hidden>
               Status

@@ -2,14 +2,14 @@ import axios from "axios";
 
 const API_URL = "/api/anime/";
 
-const addAnime = async (animeData, token) => {
+const addAnime = async (status, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
 
-  const response = await axios.post(API_URL, animeData, config);
+  const response = await axios.post(API_URL, status, config);
   return response.data;
 };
 
@@ -35,14 +35,14 @@ const removeAnime = async (animeId, token) => {
   return response.data;
 };
 
-const editAnime = async (animeId, animeData, token) => {
+const editAnime = async (animeId, body, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
 
-  const response = await axios.put(API_URL + animeId, animeData, config);
+  const response = await axios.put(API_URL + animeId, body, config);
   return response.data;
 };
 

@@ -11,10 +11,10 @@ const initialState = {
 
 export const addAnime = createAsyncThunk(
   "anime/add",
-  async (animeData, thunkAPI) => {
+  async (status, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await addService.addAnime(animeData, token);
+      return await addService.addAnime(status, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -65,10 +65,12 @@ export const removeFromLibrary = createAsyncThunk(
 
 export const editFromLibrary = createAsyncThunk(
   "anime/edit",
-  async (animeData, thunkAPI) => {
+  async (animeInfo, thunkAPI) => {
+    const { id, ...body } = animeInfo;
+
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await addService.editAnime(animeData, token);
+      return await addService.editAnime(id, body, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -139,7 +141,9 @@ export const addSlice = createSlice({
       .addCase(editFromLibrary.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.addedAnime = action.payload;
+        state.addedAnime = state.addedAnime.map((anime) =>
+          anime._id === action.payload._id ? (anime = action.payload) : anime
+        );
       })
       .addCase(editFromLibrary.rejected, (state, action) => {
         state.isLoading = false;

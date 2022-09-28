@@ -24,7 +24,7 @@ const AnimeLibraryCard = ({ anime, i }) => {
           <div className="w-[18vw]">{anime.status.currentAnime?.title}</div>
         </div>
         <div className="capitalize items-center justify-center">
-          {anime.status.status}
+          {anime.status.currentStatus}
         </div>
         <div className="">{anime.status.episode}</div>
         <div className="">{anime.status.currentAnime?.type}</div>
