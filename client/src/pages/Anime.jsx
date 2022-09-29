@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { getId } from "../features/search/searchIdSlice";
 import Spinner from "../components/Spinner";
 import Modal from "../components/Modal";
+import { AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const Anime = () => {
   // const location = useLocation();
@@ -118,7 +120,7 @@ const Anime = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setOpenModal(!openModal)
+    setOpenModal(!openModal);
 
     // dispatch(addAnime(selectedAnime));
     // setSelectedAnime([]);
@@ -128,11 +130,10 @@ const Anime = () => {
     <Spinner />
   ) : (
     <>
-    {openModal && (
-      <Modal setOpenModal={setOpenModal} />
-    )}
+      <AnimatePresence>
+        {openModal && <Modal setOpenModal={setOpenModal} />}
+      </AnimatePresence>
 
-  
       <form
         className="bg-sky-100 w-screen min-h-screen max-h-full"
         onSubmit={onSubmit}
@@ -142,7 +143,12 @@ const Anime = () => {
           className="w-screen h-[100%] object-cover object-center fixed"
         />
 
-        <div className="bg-white w-screen min-h-[20vw] relative top-[25vw] pb-[20vh]">
+        <motion.div
+          className="bg-white w-screen min-h-[20vw] relative top-[25vw] pb-[20vh]"
+          initial={{ y: 500 }}
+          animate={{ y: 0 }}
+          transition={{duration: 0.4}}
+        >
           <div className="relative">
             <img
               src={currentAnime.images?.jpg.large_image_url}
@@ -165,7 +171,7 @@ const Anime = () => {
               {currentAnime.synopsis}
             </p>
           </div>
-        </div>
+        </motion.div>
 
         <div className="w-screen h-screen bg-sky-100 relative top-[25vw]"></div>
       </form>

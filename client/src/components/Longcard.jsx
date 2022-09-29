@@ -21,7 +21,7 @@ const Longcard = ({
   const organizedTitle = title.replace(/\s+/g, '-');
 
   return (
-    <div className="gap-4 flex flex-col px-[0.5vw] justify-center rounded-lg cursor-pointer">
+    <div className="gap-4 flex flex-col px-[0.5vw] h-[8vh] mt-2 justify-center rounded-lg cursor-pointer">
       <div
         className="flex flex-row gap-4 mx-[10vw] h-[5vw] items-center"
         onClick={() =>
@@ -41,7 +41,7 @@ const Longcard = ({
         <div className="bg-white flex flex-row w-full pl-4 py-2 items-center">
           <img src={images.jpg.large_image_url} className="w-[3vw] h-[4vw]" />
           <div className="flex flex-col ml-4">
-            <h1>{title}</h1>
+            <h1 className="md:text-lg text-sm w-[20vw] truncate">{title}</h1>
 
             <div className="flex flex-row gap-2">
               {genres.map((item, i) => (
@@ -57,7 +57,7 @@ const Longcard = ({
                       : genres.length >= 4
                       ? "bg-yellow-400"
                       : "bg-orange-400"
-                  } px-2 rounded-full text-white text-sm mt-2`}
+                  } md:px-2 px-1 rounded-full text-white md:text-sm text-xs mt-2`}
                 >
                   {item.name}
                 </h2>

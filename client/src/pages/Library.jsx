@@ -38,7 +38,7 @@ const Library = () => {
 
   return (
     <>
-      <div className="w-screen min-h-screen max-h-full bg-sky-100 flex flex-col justify-center items-center">
+      <div className="w-screen min-h-screen max-h-full bg-sky-100 flex flex-col justify-center items-center p-10 pt-[15vh]">
         <div className="bg-white w-[60vw] h-[7vh] flex flex-row px-[6vw] justify-between text-md font-exo text-slate-600 font-semibold py-5">
           <h1 className="text-2xl capitalize">{user.name}'s Library</h1>
         </div>
