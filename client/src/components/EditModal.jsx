@@ -2,22 +2,23 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromLibrary, editFromLibrary } from "../features/add/addSlice";
 
-const EditModal = ({ currentAnime, setOpenModal, i }) => {
+const EditModal = ({ anime, setOpenModal, i }) => {
   const dispatch = useDispatch();
 
-  const nowAnime = currentAnime.status['currentAnime']
   const [status, setStatus] = useState({
-    id: currentAnime._id,
+    id: anime._id,
     currentStatus: "",
     episode: "",
-    nowAnime,
+    currentAnime: anime.currentAnime,
   });
 
+
+  const { id, currentStatus, episode, currentAnime } = status
 
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(editFromLibrary({status}));
+    dispatch(editFromLibrary({id, currentStatus, episode, currentAnime}));
     setOpenModal(false);
   };
 
@@ -33,7 +34,7 @@ const EditModal = ({ currentAnime, setOpenModal, i }) => {
   };
 
   const deleteAnime = () => {
-    dispatch(removeFromLibrary(currentAnime._id));
+    dispatch(removeFromLibrary(anime._id));
   };
 
   return (
@@ -58,15 +59,15 @@ const EditModal = ({ currentAnime, setOpenModal, i }) => {
           Save
         </button>
         <h2 className="absolute z-50 text-white font-exo text-2xl left-[10vw] top-[15vh] w-[40vw] truncate">
-          {currentAnime.status.currentAnime.title}
+          {anime?.currentAnime?.title}
         </h2>
         <img
-          src={currentAnime.status.currentAnime.images?.jpg.large_image_url}
+          src={anime?.currentAnime?.images?.jpg.large_image_url}
           className="w-[6vw] h-[16vh] absolute z-50 left-[3vw] top-[6vh]"
         />
         <img
           src={
-            currentAnime.status.currentAnime.trailer?.images.maximum_image_url
+            anime?.currentAnime?.trailer?.images.maximum_image_url
           }
           className="w-full h-[20vh] object-center object-cover grayscale brightness-50 absolute"
         />

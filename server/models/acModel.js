@@ -7,10 +7,18 @@ const acSchema = mongoose.Schema(
       required: true,
       ref: "User",
     },
-    status: {
+    currentStatus: {
       type: Object,
       required: [true, "Something Went Wrong In Model"],
     },
+    episode: {
+      type: String,
+      required: true
+    },
+    currentAnime: {
+      type: Object,
+      required: true,
+    }
   },
   {
     timestamps: true,

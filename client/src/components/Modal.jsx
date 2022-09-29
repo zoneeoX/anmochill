@@ -8,14 +8,16 @@ const Modal = ({ setOpenModal }) => {
   const [status, setStatus] = useState({
     currentStatus: "",
     episode: "",
-    currentAnime,
+    currentAnime : currentAnime,
   });
+
+  const { currentStatus, episode } = status
 
   const dispatch = useDispatch();
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(addAnime({status}));
+    dispatch(addAnime({currentStatus, episode, currentAnime}));
     // setStatus({
     //   status: "",
     // });

@@ -46,7 +46,7 @@ const Library = () => {
           {addedAnime.length > 0 ? (
             <div>
               {addedAnime.map((anime, i) => (
-                <AnimeLibraryCard anime={anime} i={i} key={anime._id} />
+                <AnimeLibraryCard anime={anime} i={i} key={anime?._id} />
               ))}
             </div>
           ) : (

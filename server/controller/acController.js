@@ -9,13 +9,15 @@ const getAnime = asyncHandler(async (req, res) => {
 });
 
 const addAnime = asyncHandler(async (req, res) => {
-  if (!req.body.status) {
+  if (!req.body.currentStatus || !req.body.episode || !req.body.currentAnime) {
     res.status(400);
     throw new Error("Something went wrong!, the sending request is empty");
   }
 
   const anime = await Ac.create({
-    status: req.body.status,
+    currentStatus: req.body.currentStatus,
+    episode: req.body.episode,
+    currentAnime: req.body.currentAnime,  
     user: req.user.id,
   });
 
@@ -47,7 +49,7 @@ const editAnime = asyncHandler(async (req, res) => {
   }
 
   //kita cari id nya didalam database dan kita update, kita pass id(didalam url) dan kita pass body juga (modified textnya di dalam body)
-  const editedAnime = await Ac.findByIdAndUpdate(req.params.id, req.body.status, {
+  const editedAnime = await Ac.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
 

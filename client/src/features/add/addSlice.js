@@ -11,10 +11,10 @@ const initialState = {
 
 export const addAnime = createAsyncThunk(
   "anime/add",
-  async (status, thunkAPI) => {
+  async ({currentStatus, episode, currentAnime}, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await addService.addAnime(status, token);
+      return await addService.addAnime(currentStatus, episode, currentAnime, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -65,12 +65,10 @@ export const removeFromLibrary = createAsyncThunk(
 
 export const editFromLibrary = createAsyncThunk(
   "anime/edit",
-  async (animeInfo, thunkAPI) => {
-    const { id, ...body } = animeInfo;
-
+  async ({ id, currentStatus, episode, currentAnime }, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await addService.editAnime(id, body, token);
+      return await addService.editAnime(id, currentStatus, episode, currentAnime, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -141,8 +139,27 @@ export const addSlice = createSlice({
       .addCase(editFromLibrary.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
+        // state.addedAnime = state.addedAnime.map((anime) => {
+
+        //   state.addedAnime = state.addedAnime.map((goal) =>
+        //   goal._id === action.payload.id
+        //     ? {
+        //         ...goal,
+        //        currentStatus: action.payload.currentStatus
+        //       }
+        //     : goal
+        // );
+      
+      // });
+        
         state.addedAnime = state.addedAnime.map((anime) =>
-          anime._id === action.payload._id ? (anime = action.payload) : anime
+          anime._id === action.payload.id
+            ? {
+                ...anime,
+                currentStatus: action.payload.currentStatus
+              }
+            :  anime
+
         );
       })
       .addCase(editFromLibrary.rejected, (state, action) => {
