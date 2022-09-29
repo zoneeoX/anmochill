@@ -152,14 +152,18 @@ export const addSlice = createSlice({
       
       // });
         
-        state.addedAnime = state.addedAnime.map((anime) =>
-          anime._id === action.payload.id
-            ? {
-                ...anime,
-                currentStatus: action.payload.currentStatus
-              }
-            :  anime
+        // state.addedAnime = state.addedAnime.map((anime) =>
+        //   anime._id === action.payload.id
+        //     ? {
+        //         ...anime,
+        //         currentStatus: action.payload.currentStatus
+        //       }
+        //     :  anime
 
+        // );
+
+        state.addedAnime = state.addedAnime.map((anime) =>
+          anime._id === action.payload._id ? (anime = action.payload) : anime
         );
       })
       .addCase(editFromLibrary.rejected, (state, action) => {
