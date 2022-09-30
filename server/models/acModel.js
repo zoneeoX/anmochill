@@ -7,6 +7,10 @@ const acSchema = mongoose.Schema(
       required: true,
       ref: "User",
     },
+    mal_id : {
+      type: Number,
+      required : true
+    },
     currentStatus: {
       type: Object,
       required: [true, "Something Went Wrong In Model"],

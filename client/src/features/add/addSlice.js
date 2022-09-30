@@ -11,10 +11,10 @@ const initialState = {
 
 export const addAnime = createAsyncThunk(
   "anime/add",
-  async ({currentStatus, episode, currentAnime}, thunkAPI) => {
+  async ({mal_id, currentStatus, episode, currentAnime}, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await addService.addAnime(currentStatus, episode, currentAnime, token);
+      return await addService.addAnime(mal_id, currentStatus, episode, currentAnime, token);
     } catch (error) {
       const message =
         (error.response &&

@@ -2,14 +2,15 @@ import axios from "axios";
 
 const API_URL = "/api/anime/";
 
-const addAnime = async (currentStatus, episode, currentAnime, token) => {
+const addAnime = async (mal_id, currentStatus, episode, currentAnime, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
 
-  const response = await axios.post(API_URL, {currentStatus, episode, currentAnime}, config);
+
+  const response = await axios.post(API_URL, {mal_id, currentStatus, episode, currentAnime}, config);
   return response.data;
 };
 

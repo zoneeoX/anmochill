@@ -8,21 +8,46 @@ const getAnime = asyncHandler(async (req, res) => {
   res.status(200).json(anime);
 });
 
-const addAnime = asyncHandler(async (req, res) => {
-  if (!req.body.currentStatus || !req.body.episode || !req.body.currentAnime) {
-    res.status(400);
-    throw new Error("Something went wrong!, the sending request is empty");
+const addAnime = asyncHandler(
+  async (req, res) => {
+    const { currentStatus, episode, currentAnime, mal_id } = req.body;
+
+    if (!currentStatus || !episode || !currentAnime || !mal_id) {
+      res.status(400);
+      throw new Error("Something went wrong!, the sending request is empty");
+    }
+
+    //kalo currentanime udah ada dari frontend ke dalem backend kita kan dapet mal id nya tuh ya nah terus kita compare curentanime yang di send sama yang di backend
+    // let animeExists = Ac.findOne({currentAnime})
+    const userAnime = req.user.id
+    let animeExists = await Ac.find({ user: req.user.id, mal_id });
+
+    // if (animeExists) {
+    //   res.status(409).json({animeExists});
+    // } else {
+    if (animeExists.length >= 1 ? animeExists[0].mal_id === mal_id : '') {
+      res.status(409).json({ message: animeExists });
+    } else {
+      const anime = await Ac.create({
+        mal_id: req.body.mal_id,
+        currentStatus: req.body.currentStatus,
+        episode: req.body.episode,
+        currentAnime: req.body.currentAnime,
+        user: req.user.id,
+      });
+
+      res.status(200).json(anime);
+    }
   }
 
-  const anime = await Ac.create({
-    currentStatus: req.body.currentStatus,
-    episode: req.body.episode,
-    currentAnime: req.body.currentAnime,  
-    user: req.user.id,
-  });
+  // const { currentAnime } = req.body;
 
-  res.status(200).json(anime);
-});
+  // if(animeExists){
+  //   res.status(409).json({message: 'Anime already exists'})
+  // } else {
+
+  // }
+);
 
 const editAnime = asyncHandler(async (req, res) => {
   // Ac find by id di cari di database mongodb
@@ -35,7 +60,6 @@ const editAnime = asyncHandler(async (req, res) => {
   }
 
   // dispatch(editFromLibrary(status, currentAnime._id));
-
 
   if (!req.user) {
     res.status(401);

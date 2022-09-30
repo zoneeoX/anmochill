@@ -13,12 +13,13 @@ const Modal = ({ setOpenModal }) => {
   });
 
   const { currentStatus, episode } = status;
+  const mal_id = currentAnime.mal_id
 
   const dispatch = useDispatch();
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(addAnime({ currentStatus, episode, currentAnime }));
+    dispatch(addAnime({ mal_id, currentStatus, episode, currentAnime }));
     // setStatus({
     //   status: "",
     // });
@@ -70,7 +71,7 @@ const Modal = ({ setOpenModal }) => {
             className="w-full h-[20vh] object-center object-cover grayscale brightness-50 absolute"
           />
         </div>
-        <section className="bg-sky-100 w-[60vw] h-[45vh] relative -z-10 grid grid-cols-3 px-10 py-20">
+        <section className="bg-sky-100 w-[60vw] h-[45vh] relative z-10 grid grid-cols-3 px-10 py-20">
           <label className="flex flex-col">
             Status
             <select

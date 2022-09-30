@@ -45,7 +45,7 @@ const EditModal = ({ anime, setOpenModal, i }) => {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         exit={{ scale: 0 }}
-        transition={{ duration: 0.3, bounce: 0.3}}
+        transition={{ duration: 0.3, bounce: 0.3 }}
       >
         <div className="w-[60vw] h-[20vh] relative">
           <button
@@ -75,7 +75,7 @@ const EditModal = ({ anime, setOpenModal, i }) => {
             className="w-full h-[20vh] object-center object-cover grayscale brightness-50 absolute"
           />
         </div>
-        <section className="bg-sky-100 w-[60vw] h-[45vh] relative -z-10 grid grid-cols-3 px-10 py-20">
+        <section className="bg-sky-100 w-[60vw] h-[45vh] relative z-10 grid grid-cols-3 px-10 py-20">
           <label className="flex flex-col">
             Status
             <select
@@ -95,7 +95,13 @@ const EditModal = ({ anime, setOpenModal, i }) => {
           </label>
           <label className="flex flex-col">
             Episode Progress
-            <input onChange={onChange} name="episode" value={status.episode} />
+            <input
+              onChange={onChange}
+              type="number"
+              name="episode"
+              value={status.episode}
+              autoComplete="off"
+            />
           </label>
         </section>
       </motion.div>

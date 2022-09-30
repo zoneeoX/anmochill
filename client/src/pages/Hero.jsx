@@ -15,7 +15,7 @@ const Hero = () => {
         <h1 className="text-8xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-slate-500 w-fit font-exo">
           Anmo<span>Chill</span>
         </h1>
-        <p className="text-2xl cursor-pointer select-nonetext-white w-[32vw] text-center text-white mt-2 font-josef">
+        <p className="text-2xl cursor-pointer select-nonetext-white w-[32vw] text-center text-white mt-2 font-josef" >
           The home of alternative Anime & Movie Rankings, In depth description,
           Recommendations and more!
         </p>
