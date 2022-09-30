@@ -2,7 +2,6 @@ import React from "react";
 import { CgMenuBoxed } from "react-icons/cg";
 import { IoIosArrowDown } from "react-icons/io";
 
-import blob from "../images/blob.svg";
 
 const Hero = () => {
   return (
@@ -12,7 +11,7 @@ const Hero = () => {
         className="w-[100%] h-full absolute -z-50 object-cover bg-gradient-to-b from-teal-900 to-slate-900 object-center"
       /> */}
       <div className="w-screen h-[80vh] flex justify-center items-center flex-col bg-slate-800">
-        <h1 className="text-8xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-slate-500 w-fit font-exo">
+        <h1 className="text-8xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-white to-sky-500 w-fit font-exo">
           Anmo<span>Chill</span>
         </h1>
         <p className="text-2xl cursor-pointer select-nonetext-white w-[32vw] text-center text-white mt-2 font-josef" >

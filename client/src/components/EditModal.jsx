@@ -10,14 +10,41 @@ const EditModal = ({ anime, setOpenModal, i }) => {
     id: anime._id,
     currentStatus: "",
     episode: "",
+    score: "",
+    start: "",
+    end: "",
+    rewatch: "",
+    notes: "",
     currentAnime: anime.currentAnime,
   });
 
-  const { id, currentStatus, episode, currentAnime } = status;
+  const {
+    id,
+    currentStatus,
+    episode,
+    score,
+    start,
+    end,
+    rewatch,
+    notes,
+    currentAnime,
+  } = status;
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(editFromLibrary({ id, currentStatus, episode, currentAnime }));
+    dispatch(
+      editFromLibrary({
+        id,
+        currentStatus,
+        episode,
+        score,
+        start,
+        end,
+        rewatch,
+        notes,
+        currentAnime,
+      })
+    );
     setOpenModal(false);
   };
 
@@ -75,13 +102,14 @@ const EditModal = ({ anime, setOpenModal, i }) => {
             className="w-full h-[20vh] object-center object-cover grayscale brightness-50 absolute"
           />
         </div>
-        <section className="bg-sky-100 w-[60vw] h-[45vh] relative z-10 grid grid-cols-3 px-10 py-20">
+        <section className="bg-white w-[60vw] min-h-[45vh] max-h-fit relative z-10 grid grid-cols-3 px-10 py-20 gap-2 font-exo">
           <label className="flex flex-col">
-            Status
+            <p className="text-gray-400 font-josef">Status</p>
             <select
               onChange={onChange}
               name="currentStatus"
               required
+              className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none"
               value={status.currentStatus}
             >
               <option value="" disabled hidden>
@@ -94,13 +122,68 @@ const EditModal = ({ anime, setOpenModal, i }) => {
             </select>
           </label>
           <label className="flex flex-col">
-            Episode Progress
+            <p className="text-gray-400 font-josef">Episode Progress</p>
             <input
               onChange={onChange}
               type="number"
               name="episode"
+              className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none"
               value={status.episode}
               autoComplete="off"
+            />
+          </label>
+          <label className="flex flex-col">
+            <p className="text-gray-400 font-josef">Score</p>
+            <input
+              onChange={onChange}
+              name="score"
+              type="number"
+              value={status.score}
+              className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none"
+            />
+          </label>
+          <label className="flex flex-col">
+            <p className="text-gray-400 font-josef">Start Date</p>
+
+            <input
+              onChange={onChange}
+              name="start"
+              type="date"
+              value={status.start}
+              className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none"
+            />
+          </label>
+          <label className="flex flex-col">
+            <p className="text-gray-400 font-josef">Finish Date</p>
+
+            <input
+              onChange={onChange}
+              name="end"
+              type="date"
+              value={status.end}
+              className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none"
+            />
+          </label>
+          <label className="flex flex-col">
+            <p className="text-gray-400 font-josef">Total Rewatches</p>
+
+            <input
+              onChange={onChange}
+              name="rewatch"
+              type="number"
+              value={status.rewatch}
+              className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none"
+            />
+          </label>
+          <label className="flex flex-col col-span-3">
+            <p className="text-gray-400 font-josef">Optional Notes</p>
+
+            <textarea
+              onChange={onChange}
+              name="notes"
+              type="text"
+              value={status.notes}
+              className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none"
             />
           </label>
         </section>

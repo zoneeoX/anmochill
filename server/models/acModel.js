@@ -19,6 +19,26 @@ const acSchema = mongoose.Schema(
       type: String,
       required: true
     },
+    score: {
+      type: String,
+      required: true
+    },
+    start: {
+      type: String,
+      required: true,
+    },
+    end: {
+      type: String,
+      required: true,
+    },
+    rewatch: {
+      type: String,
+      required: true,
+    },
+    notes: {
+      type: String,
+      required: true,
+    },
     currentAnime: {
       type: Object,
       required: true,

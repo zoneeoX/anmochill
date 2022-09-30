@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL = "/api/anime/";
 
-const addAnime = async (mal_id, currentStatus, episode, currentAnime, token) => {
+const addAnime = async (mal_id, currentStatus, episode, score, start, end, rewatch, notes, currentAnime, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -10,7 +10,7 @@ const addAnime = async (mal_id, currentStatus, episode, currentAnime, token) => 
   };
 
 
-  const response = await axios.post(API_URL, {mal_id, currentStatus, episode, currentAnime}, config);
+  const response = await axios.post(API_URL, {mal_id, currentStatus, episode, score, start, end, rewatch, notes, currentAnime}, config);
   return response.data;
 };
 
@@ -36,14 +36,14 @@ const removeAnime = async (animeId, token) => {
   return response.data;
 };
 
-const editAnime = async (id, currentStatus, episode, currentAnime, token) => {
+const editAnime = async (id, currentStatus, episode, score, start, end, rewatch, notes, currentAnime, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
 
-  const response = await axios.put(API_URL + id,{currentStatus, episode, currentAnime}, config);
+  const response = await axios.put(API_URL + id,{currentStatus, episode, score, start, end, rewatch, notes, currentAnime}, config);
   return response.data;
 };
 

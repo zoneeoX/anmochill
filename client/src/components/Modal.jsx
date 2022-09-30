@@ -9,17 +9,22 @@ const Modal = ({ setOpenModal }) => {
   const [status, setStatus] = useState({
     currentStatus: "",
     episode: "",
+    score: "",
+    start: "",
+    end: "",
+    rewatch: "",
+    notes: "",
     currentAnime: currentAnime,
   });
 
-  const { currentStatus, episode } = status;
+  const { currentStatus, episode, score, start, end, rewatch, notes } = status;
   const mal_id = currentAnime.mal_id
 
   const dispatch = useDispatch();
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(addAnime({ mal_id, currentStatus, episode, currentAnime }));
+    dispatch(addAnime({ mal_id, currentStatus, episode, score, start, end, rewatch, notes, currentAnime }));
     // setStatus({
     //   status: "",
     // });
@@ -71,12 +76,13 @@ const Modal = ({ setOpenModal }) => {
             className="w-full h-[20vh] object-center object-cover grayscale brightness-50 absolute"
           />
         </div>
-        <section className="bg-sky-100 w-[60vw] h-[45vh] relative z-10 grid grid-cols-3 px-10 py-20">
+        <section className="bg-white w-[60vw] min-h-[45vh] max-h-fit relative z-10 grid grid-cols-3 px-10 py-20 gap-2">
           <label className="flex flex-col">
-            Status
+          <p className="text-gray-400 font-josef">Status</p>
             <select
               onChange={onChange}
               name="currentStatus"
+              className="bg-sky-100 p-2 focus:outline-2 outline-purple-500 active:outline-none rounded"
               value={status.currentStatus}
               required
             >
@@ -90,8 +96,28 @@ const Modal = ({ setOpenModal }) => {
             </select>
           </label>
           <label className="flex flex-col">
-            Episode Progress
-            <input onChange={onChange} name="episode" value={status.episode} />
+            <p className="text-gray-400 font-josef">Episode Progress</p>
+            <input onChange={onChange} name="episode" type="number" value={status.episode} className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none" />
+          </label>
+          <label className="flex flex-col">
+          <p className="text-gray-400 font-josef">Score</p>
+            <input onChange={onChange} name="score" type="number" value={status.score} className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none" />
+          </label>
+          <label className="flex flex-col">
+          <p className="text-gray-400 font-josef">Start Date</p>
+            <input onChange={onChange} name="start" type="date" value={status.start} className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none" />
+          </label>
+          <label className="flex flex-col">
+          <p className="text-gray-400 font-josef">Finish Date</p>
+            <input onChange={onChange} name="end" type="date" value={status.end} className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none" />
+          </label>
+          <label className="flex flex-col">
+          <p className="text-gray-400 font-josef">Total Rewatches</p>
+            <input onChange={onChange} name="rewatch" type="number" value={status.rewatch} className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none" />
+          </label>
+          <label className="flex flex-col col-span-3">
+          <p className="text-gray-400 font-josef">Optional Notes</p>
+            <textarea onChange={onChange} name="notes" type="text" value={status.notes} className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none" />
           </label>
         </section>
       </motion.div>

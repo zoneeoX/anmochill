@@ -11,10 +11,10 @@ const initialState = {
 
 export const addAnime = createAsyncThunk(
   "anime/add",
-  async ({mal_id, currentStatus, episode, currentAnime}, thunkAPI) => {
+  async ({mal_id, currentStatus, episode, score, start, end, rewatch, notes, currentAnime}, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await addService.addAnime(mal_id, currentStatus, episode, currentAnime, token);
+      return await addService.addAnime(mal_id, currentStatus, episode, score, start, end, rewatch, notes, currentAnime, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -65,10 +65,10 @@ export const removeFromLibrary = createAsyncThunk(
 
 export const editFromLibrary = createAsyncThunk(
   "anime/edit",
-  async ({ id, currentStatus, episode, currentAnime }, thunkAPI) => {
+  async ({ id, currentStatus, episode, score, start, end, rewatch, notes, currentAnime }, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await addService.editAnime(id, currentStatus, episode, currentAnime, token);
+      return await addService.editAnime(id, currentStatus, episode, score, start, end, rewatch, notes, currentAnime, token);
     } catch (error) {
       const message =
         (error.response &&

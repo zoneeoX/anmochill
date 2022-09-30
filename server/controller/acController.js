@@ -10,7 +10,7 @@ const getAnime = asyncHandler(async (req, res) => {
 
 const addAnime = asyncHandler(
   async (req, res) => {
-    const { currentStatus, episode, currentAnime, mal_id } = req.body;
+    const { currentStatus, episode, score, start, end, rewatch, notes, currentAnime, mal_id } = req.body;
 
     if (!currentStatus || !episode || !currentAnime || !mal_id) {
       res.status(400);
@@ -19,7 +19,7 @@ const addAnime = asyncHandler(
 
     //kalo currentanime udah ada dari frontend ke dalem backend kita kan dapet mal id nya tuh ya nah terus kita compare curentanime yang di send sama yang di backend
     // let animeExists = Ac.findOne({currentAnime})
-    const userAnime = req.user.id
+    // const userAnime = req.user.id
     let animeExists = await Ac.find({ user: req.user.id, mal_id });
 
     // if (animeExists) {
@@ -32,6 +32,11 @@ const addAnime = asyncHandler(
         mal_id: req.body.mal_id,
         currentStatus: req.body.currentStatus,
         episode: req.body.episode,
+        score: req.body.score,
+        start: req.body.start,
+        end: req.body.end,
+        rewatch: req.body.rewatch,
+        notes: req.body.notes,
         currentAnime: req.body.currentAnime,
         user: req.user.id,
       });
