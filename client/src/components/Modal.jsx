@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const Modal = ({ setOpenModal }) => {
   const { currentAnime } = useSelector((store) => store.searchId);
+  const { user } = useSelector((store) => store.auth);
 
   const [status, setStatus] = useState({
     currentStatus: "",
@@ -14,17 +15,32 @@ const Modal = ({ setOpenModal }) => {
     end: "",
     rewatch: "",
     notes: "",
+    username: user.name,
     currentAnime: currentAnime,
   });
 
-  const { currentStatus, episode, score, start, end, rewatch, notes } = status;
-  const mal_id = currentAnime.mal_id
+
+  const { currentStatus, episode, score, start, end, rewatch, notes, username } = status;
+  const mal_id = currentAnime.mal_id;
 
   const dispatch = useDispatch();
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(addAnime({ mal_id, currentStatus, episode, score, start, end, rewatch, notes, currentAnime }));
+    dispatch(
+      addAnime({
+        mal_id,
+        currentStatus,
+        episode,
+        score,
+        start,
+        end,
+        rewatch,
+        notes,
+        username,
+        currentAnime,
+      })
+    );
     // setStatus({
     //   status: "",
     // });
@@ -45,7 +61,7 @@ const Modal = ({ setOpenModal }) => {
 
   return (
     <form
-      className="bg-black/75 w-screen h-screen fixed flex flex-col justify-center items-center z-50"
+      className="bg-black/75 w-screen h-screen fixed flex flex-col justify-center items-center z-50 backdrop-blur-sm"
       onSubmit={onSubmit}
     >
       <motion.div
@@ -61,9 +77,16 @@ const Modal = ({ setOpenModal }) => {
           >
             x
           </button>
-          <button className="bg-blue-400 px-4 py-1 absolute z-50 right-[2vw] top-[15vh] text-white font-josef">
-            Save
-          </button>
+          $
+          {user ? (
+            <button className="bg-blue-400 px-4 py-1 absolute z-50 right-[2vw] top-[15vh] text-white font-josef">
+              Save
+            </button>
+          ) : (
+            <h1 className="bg-red-400 px-4 py-1 absolute z-50 right-[2vw] top-[15vh] text-white font-josef cursor-not-allowed">
+              Login to add
+            </h1>
+          )}
           <h2 className="absolute z-50 text-white font-exo text-2xl left-[10vw] top-[15vh] w-[40vw] truncate">
             {currentAnime.title}
           </h2>
@@ -73,12 +96,12 @@ const Modal = ({ setOpenModal }) => {
           />
           <img
             src={currentAnime.trailer?.images.maximum_image_url}
-            className="w-full h-[20vh] object-center object-cover grayscale brightness-50 absolute"
+            className="w-full h-[20vh] object-center object-cover grayscale brightness-50 absolute bg-zinc-900"
           />
         </div>
         <section className="bg-white w-[60vw] min-h-[45vh] max-h-fit relative z-10 grid grid-cols-3 px-10 py-20 gap-2">
           <label className="flex flex-col">
-          <p className="text-gray-400 font-josef">Status</p>
+            <p className="text-gray-400 font-josef">Status</p>
             <select
               onChange={onChange}
               name="currentStatus"
@@ -97,27 +120,70 @@ const Modal = ({ setOpenModal }) => {
           </label>
           <label className="flex flex-col">
             <p className="text-gray-400 font-josef">Episode Progress</p>
-            <input onChange={onChange} name="episode" type="number" value={status.episode} className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none" />
+            <input
+              onChange={onChange}
+              name="episode"
+              type="number"
+              required
+              value={status.episode}
+              max={currentAnime.episodes}
+              min={1}
+              className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none"
+            />
           </label>
           <label className="flex flex-col">
-          <p className="text-gray-400 font-josef">Score</p>
-            <input onChange={onChange} name="score" type="number" value={status.score} className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none" />
+            <p className="text-gray-400 font-josef">Score</p>
+            <input
+              onChange={onChange}
+              name="score"
+              type="number"
+              max={5}
+              min={1}
+              required
+              value={status.score}
+              className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none"
+            />
           </label>
           <label className="flex flex-col">
-          <p className="text-gray-400 font-josef">Start Date</p>
-            <input onChange={onChange} name="start" type="date" value={status.start} className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none" />
+            <p className="text-gray-400 font-josef">Start Date</p>
+            <input
+              onChange={onChange}
+              name="start"
+              type="date"
+              value={status.start}
+              required
+              className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none"
+            />
           </label>
           <label className="flex flex-col">
-          <p className="text-gray-400 font-josef">Finish Date</p>
-            <input onChange={onChange} name="end" type="date" value={status.end} className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none" />
+            <p className="text-gray-400 font-josef">Finish Date</p>
+            <input
+              onChange={onChange}
+              name="end"
+              type="date"
+              value={status.end}
+              className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none"
+            />
           </label>
           <label className="flex flex-col">
-          <p className="text-gray-400 font-josef">Total Rewatches</p>
-            <input onChange={onChange} name="rewatch" type="number" value={status.rewatch} className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none" />
+            <p className="text-gray-400 font-josef">Total Rewatches</p>
+            <input
+              onChange={onChange}
+              name="rewatch"
+              type="number"
+              value={status.rewatch}
+              className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none"
+            />
           </label>
           <label className="flex flex-col col-span-3">
-          <p className="text-gray-400 font-josef">Optional Notes</p>
-            <textarea onChange={onChange} name="notes" type="text" value={status.notes} className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none" />
+            <p className="text-gray-400 font-josef">Optional Notes</p>
+            <textarea
+              onChange={onChange}
+              name="notes"
+              type="text"
+              value={status.notes}
+              className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none"
+            />
           </label>
         </section>
       </motion.div>

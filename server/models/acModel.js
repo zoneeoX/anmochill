@@ -29,13 +29,14 @@ const acSchema = mongoose.Schema(
     },
     end: {
       type: String,
-      required: true,
     },
     rewatch: {
       type: String,
-      required: true,
     },
     notes: {
+      type: String,
+    },
+    username: {
       type: String,
       required: true,
     },

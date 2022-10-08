@@ -3,10 +3,17 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getId } from "../features/search/searchIdSlice";
+import { getCharacter } from "../features/search/characterSlice";
 import Spinner from "../components/Spinner";
 import Modal from "../components/Modal";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Information from "../components/Information";
+import Character from "../components/Character";
+import Trailer from "../components/Trailer";
+import { TabTitle } from "../components/DynamicTitle";
 
 const Anime = () => {
   // const location = useLocation();
@@ -34,9 +41,15 @@ const Anime = () => {
 
   // const multi = useSelector((store) => store.multiple);
   // const top = useSelector((store) => store.top);
-  const { currentAnime, isLoading, isSuccess, isError, message } = useSelector(
-    (store) => store.searchId
-  );
+  const { currentAnime, isLoading } = useSelector((store) => store.searchId);
+
+  const { isSuccess, isError } = useSelector((store) => store.add);
+
+  TabTitle(`${currentAnime?.title} ・ Anmochill`);
+  console.log(currentAnime);
+
+  const { currentCharacters } = useSelector((store) => store.character);
+
   const { user } = useSelector((store) => store.auth);
 
   // const { topList } = top;
@@ -49,8 +62,9 @@ const Anime = () => {
 
   useEffect(() => {
     dispatch(getId(id));
+    dispatch(getCharacter(id));
     window.scrollTo(0, 0);
-  }, []);
+  }, [id]);
 
   /**
    * * 1. liat parameter idnya
@@ -121,15 +135,24 @@ const Anime = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     setOpenModal(!openModal);
-
     // dispatch(addAnime(selectedAnime));
     // setSelectedAnime([]);
   };
+
+  useEffect(() => {
+    if (isSuccess === true) {
+      toast.success("Anime has been added to your library!");
+    }
+    if (isError) {
+      toast.error("Anime already exists in your library!");
+    }
+  }, [isSuccess, isError]);
 
   return isLoading ? (
     <Spinner />
   ) : (
     <>
+      <ToastContainer />
       <AnimatePresence>
         {openModal && <Modal setOpenModal={setOpenModal} />}
       </AnimatePresence>
@@ -140,14 +163,14 @@ const Anime = () => {
       >
         <img
           src={currentAnime.trailer?.images.maximum_image_url}
-          className="w-screen h-[100%] object-cover object-center fixed"
+          className="w-screen h-[100%] object-cover object-center fixed blur-sm brightness-50 bg-slate-900"
         />
 
         <motion.div
-          className="bg-white w-screen min-h-[20vw] relative top-[25vw] pb-[20vh]"
+          className="bg-white w-screen min-h-[20vw] relative top-[25rem] pb-[20vh]"
           initial={{ y: 500 }}
           animate={{ y: 0 }}
-          transition={{duration: 0.4}}
+          transition={{ duration: 0.4 }}
         >
           <div className="relative">
             <img
@@ -155,8 +178,8 @@ const Anime = () => {
               className="absolute w-[15vw] h-[20vw] -top-[6vw] left-[10vw] rounded-lg shadow-lg shadow-black"
             />
 
-            <button className="absolute left-[10vw] top-[15.5vw] w-[15vw] text-md bg-blue-400 px-[5.5vw] h-[4vh] rounded-lg text-white">
-              Add to List
+            <button className="absolute left-[10vw] top-[15.5vw] w-[15vw] text-md bg-rose-600 px-[5.5vw] h-[4vh] rounded-lg text-white font-exo hover:scale-110 transition-all duration-200">
+              Add
             </button>
 
             {/* <button className="absolute left-[23vw] top-[15.5vw] text-md bg-red-400 px-[0.6vw] h-[4vh] rounded-sm text-white">
@@ -173,7 +196,19 @@ const Anime = () => {
           </div>
         </motion.div>
 
-        <div className="w-screen h-screen bg-sky-100 relative top-[25vw]"></div>
+        <div className="w-screen min-h-screen max-h-full py-10 bg-sky-100 relative top-[25rem] flex md:flex-row flex-col px-[10vw] md:px-[5vw]">
+          <div>
+            <Information currentAnime={currentAnime} />
+          </div>
+          <div className="flex flex-col items-start">
+            <div>
+              <Character currentCharacters={currentCharacters} />
+            </div>
+            <div className="">
+              <Trailer currentAnime={currentAnime} />
+            </div>
+          </div>
+        </div>
       </form>
     </>
   );

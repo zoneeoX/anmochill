@@ -213,7 +213,7 @@ const Multiselect = () => {
       <div className="flex flex-row gap-6">
         {selectOption.map((item, i) => {
           return (
-            <div className="flex flex-col text-white" key={item.filter[i].id}>
+            <div className="flex flex-col text-white" key={item?.filter[i].id}>
               <div
                 className="bg-white h-[3vh] flex justify-center items-center p-4 rounded-xl w-[10vw] relative"
                 onMouseDown={(e) => {
@@ -224,7 +224,7 @@ const Multiselect = () => {
                 // tabIndex={0} // search this up later
               >
                 <input
-                  placeholder={item.type}
+                  placeholder={item?.type}
                   className="bg-white focus:outline-none text-gray-700 font-exo font-semibold"
                   onMouseDown={(event) => {
                     event.stopPropagation(); //biar child elemen kg ketabrak sama parent
@@ -245,9 +245,9 @@ const Multiselect = () => {
                 //not here
               >
                 <h2 className="mb-2 select-none text-lg font-bold font-exo">
-                  {item.type}
+                  {item?.type}
                 </h2>
-                {item.filter.map((genre, idx) => (
+                {item?.filter?.map((genre, idx) => (
                   <li
                     value={idx}
                     key={genre.id}
@@ -269,7 +269,7 @@ const Multiselect = () => {
 
       <div className="flex flex-row gap-2">
         {selectOption.map((item, i) =>
-          item.filter.map(
+          item?.filter.map(
             (
               genre,
               idx // filter is not filter as in js function but a var name

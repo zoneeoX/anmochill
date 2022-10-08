@@ -3,8 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import Animecard from "../components/Animecard";
 import Cardskeleton from "../components/Cardskeleton";
 import { multipleFetch } from "../features/MultipleAxiosFeature";
+import { TabTitle } from "../components/DynamicTitle";
 
 const TrendingPage = () => {
+
+  TabTitle("Trending Now ・ Anmochill");
+
   const dispatch = useDispatch();
   const multi = useSelector((store) => store.multiple);
   const { animeList, isLoadingCard } = multi;

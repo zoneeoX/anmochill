@@ -8,9 +8,22 @@ const getAnime = asyncHandler(async (req, res) => {
   res.status(200).json(anime);
 });
 
+const getOtherAnime = asyncHandler(async (req,res) => {
+  const { usernames } = req.body;
+
+  // if(username === '' || username === null || username === NaN){
+  //   res.status(400)
+  //   throw new Error(username) 
+  // }
+
+  let userProfile = await Ac.find({username: usernames})
+
+  res.status(200).json(userProfile)
+})
+
 const addAnime = asyncHandler(
   async (req, res) => {
-    const { currentStatus, episode, score, start, end, rewatch, notes, currentAnime, mal_id } = req.body;
+    const { currentStatus, episode, score, start, end, rewatch, notes, currentAnime, username, mal_id } = req.body;
 
     if (!currentStatus || !episode || !currentAnime || !mal_id) {
       res.status(400);
@@ -37,6 +50,7 @@ const addAnime = asyncHandler(
         end: req.body.end,
         rewatch: req.body.rewatch,
         notes: req.body.notes,
+        username: req.body.username,
         currentAnime: req.body.currentAnime,
         user: req.user.id,
       });
@@ -116,4 +130,5 @@ module.exports = {
   addAnime,
   editAnime,
   deleteAnime,
+  getOtherAnime,
 };

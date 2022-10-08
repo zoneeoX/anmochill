@@ -11,10 +11,10 @@ const initialState = {
 
 export const addAnime = createAsyncThunk(
   "anime/add",
-  async ({mal_id, currentStatus, episode, score, start, end, rewatch, notes, currentAnime}, thunkAPI) => {
+  async ({mal_id, currentStatus, episode, score, start, end, rewatch, notes, username, currentAnime}, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await addService.addAnime(mal_id, currentStatus, episode, score, start, end, rewatch, notes, currentAnime, token);
+      return await addService.addAnime(mal_id, currentStatus, episode, score, start, end, rewatch, notes, username, currentAnime, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -44,6 +44,24 @@ export const getUserAnime = createAsyncThunk(
     }
   }
 );
+
+export const getOtherAnime = createAsyncThunk(
+  "anime/other",
+  async (username, thunkAPI) => {
+    try {
+      return await addService.getOtherAnime(username);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+  
+)
 
 export const removeFromLibrary = createAsyncThunk(
   "anime/remove",
@@ -112,6 +130,20 @@ export const addSlice = createSlice({
         state.addedAnime = action.payload;
       })
       .addCase(getUserAnime.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(getOtherAnime.pending, (state, action) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(getOtherAnime.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.addedAnime = action.payload
+      })
+      .addCase(getOtherAnime.rejected, (state,action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

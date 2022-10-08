@@ -8,13 +8,13 @@ const EditModal = ({ anime, setOpenModal, i }) => {
 
   const [status, setStatus] = useState({
     id: anime._id,
-    currentStatus: "",
-    episode: "",
-    score: "",
-    start: "",
-    end: "",
-    rewatch: "",
-    notes: "",
+    currentStatus: "" || anime?.currentStatus,
+    episode: "" || anime?.episode,
+    score: "" || anime?.score,
+    start: "" || anime?.start,
+    end: "" || anime?.end,
+    rewatch: "" || anime?.rewatch,
+    notes: "" || anime?.notes,
     currentAnime: anime.currentAnime,
   });
 
@@ -65,7 +65,7 @@ const EditModal = ({ anime, setOpenModal, i }) => {
 
   return (
     <form
-      className="bg-black/75 w-screen h-screen fixed flex flex-col justify-center items-center z-50 top-0 left-0 right-0 bottom-0"
+      className="bg-black/75 w-screen h-screen fixed flex flex-col justify-center items-center z-50 top-0 left-0 right-0 bottom-0 backdrop-blur-sm"
       onSubmit={onSubmit}
     >
       <motion.div
@@ -77,6 +77,7 @@ const EditModal = ({ anime, setOpenModal, i }) => {
         <div className="w-[60vw] h-[20vh] relative">
           <button
             className="text-2xl z-50 right-[1vw] text-white font-exo top-[2vh] absolute"
+            type="button"
             onClick={closeModal}
           >
             x
@@ -99,7 +100,7 @@ const EditModal = ({ anime, setOpenModal, i }) => {
           />
           <img
             src={anime?.currentAnime?.trailer?.images.maximum_image_url}
-            className="w-full h-[20vh] object-center object-cover grayscale brightness-50 absolute"
+            className="w-full h-[20vh] object-center object-cover grayscale brightness-50 absolute bg-green-900"
           />
         </div>
         <section className="bg-white w-[60vw] min-h-[45vh] max-h-fit relative z-10 grid grid-cols-3 px-10 py-20 gap-2 font-exo">
@@ -129,6 +130,9 @@ const EditModal = ({ anime, setOpenModal, i }) => {
               name="episode"
               className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none"
               value={status.episode}
+              min={1}
+              required
+              max={anime?.currentAnime?.episodes}
               autoComplete="off"
             />
           </label>
@@ -138,6 +142,9 @@ const EditModal = ({ anime, setOpenModal, i }) => {
               onChange={onChange}
               name="score"
               type="number"
+              required
+              min={1}
+              max={5}
               value={status.score}
               className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none"
             />
@@ -150,6 +157,7 @@ const EditModal = ({ anime, setOpenModal, i }) => {
               name="start"
               type="date"
               value={status.start}
+              required
               className="bg-sky-100 p-2 rounded focus:outline-2 outline-purple-500 active:outline-none"
             />
           </label>

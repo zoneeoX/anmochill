@@ -13,6 +13,7 @@ import LongcardSkeleton from "../components/LongcardSkeleton";
 const Trending = () => {
   const top = useSelector((store) => store.top);
   const multi = useSelector((store) => store.multiple);
+  const { user } = useSelector((store) => store.auth)
 
   const { topList, isLoading } = top;
   const { animeList } = multi;
@@ -28,8 +29,9 @@ const Trending = () => {
 
   const returnKeys = Object.keys; // this return key from object
 
+
   return (
-    <div className="w-screen min-h-screen max-h-full bg-sky-100 flex flex-col gap-10 py-[4vw]">
+    <div className={`w-screen min-h-screen max-h-full bg-sky-100 flex flex-col gap-10 select-none ${!user ? 'py-[5vh]' : 'py-[15vh]'}`}>
       {isLoading ? (
         <Cardskeleton />
       ) : (
