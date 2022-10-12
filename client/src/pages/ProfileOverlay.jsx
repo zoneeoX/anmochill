@@ -102,7 +102,7 @@ const ProfileOverlay = () => {
       <div className="relative w-screen">
         <div className="text-white text-4xl top-[30vh] p-4 relative flex flex-row gap-4 items-end font-exo">
           <div className="w-[10vh] h-[10vh] bg-blue-400 border-2 border-white/50" />
-          <h1>{user.name}'s Profile</h1>
+          <h1>{username}'s Profile</h1>
         </div>
         <div className="w-screen h-screen bg-sky-100 relative top-[30vh]">
           <div className="w-screen h-[6vh] bg-slate-800 text-white items-center flex justify-center">

@@ -12,8 +12,10 @@ import {
   BsGearFill,
   BsBug,
   BsBookmarkPlusFill,
+  BsFillPeopleFill
 } from "react-icons/bs";
 import { FaMedal } from 'react-icons/fa'
+import SocialTab from "../components/SocialTab";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -23,6 +25,7 @@ const Navbar = () => {
   const [nav, setNav] = useState(true);
   const [isProfile, setIsProfile] = useState(false);
   const [isSearchModal, setIsSearchModal] = useState(false);
+  const [isSocial, setIsSocial] = useState(false)
   
 
   const scrollDetect = (e) => {
@@ -81,7 +84,13 @@ const Navbar = () => {
 
   const openSearchModal = () => {
     setIsSearchModal(!isSearchModal);
+    setIsSocial(false)
   };
+
+  const openSocial = () => {
+    setIsSocial(!isSocial)
+    setIsSearchModal(false)
+  }
 
   const navigateToLibrary = () => {
     navigate("/library");
@@ -138,6 +147,14 @@ const Navbar = () => {
                 >
                   <i className={`text-xl ${isSearchModal ? 'text-red-400' : 'text-white'}`}>
                     <FiSearch />
+                  </i>
+                </button>
+                <button
+                  className="text-white rounded-lg pr-4 hover:scale-105 transition duration-200 py-1 flex gap-2 items-center"
+                  onClick={openSocial}
+                >
+                  <i className={`text-xl ${isSocial ? 'text-red-400' : 'text-white'}`}>
+                    <BsFillPeopleFill />
                   </i>
                 </button>
                 <div className="relative group">
@@ -208,6 +225,13 @@ const Navbar = () => {
                 <AnimatePresence>
                   {isSearchModal ? (
                     <Navsearch setIsSearchModal={setIsSearchModal} />
+                  ) : (
+                    ""
+                  )}
+                </AnimatePresence>
+                <AnimatePresence>
+                  {isSocial ? (
+                    <SocialTab />
                   ) : (
                     ""
                   )}

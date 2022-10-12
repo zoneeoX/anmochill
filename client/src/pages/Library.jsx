@@ -65,9 +65,7 @@ const Library = () => {
     };
   }, [user, navigate, isError, message, dispatch]);
 
-  if (addedAnime.length < 1) {
-    return <Spinner />;
-  }
+
 
   return (
     <>
