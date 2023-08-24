@@ -1,4 +1,4 @@
 # anmochill
 A MERN Stack Project.
 
-A Simple Find, save anime tracker
+Find, Save, Track your favorite anime, and chat with other people and check other people's profile.
